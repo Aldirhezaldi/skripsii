@@ -1,0 +1,44 @@
+<nav class="main-nav--bg">
+    <div class="container main-nav">
+        <div class="main-nav-start">
+        </div>
+        <div class="main-nav-end">
+            <button class="theme-switcher gray-circle-btn" type="button" title="Switch theme">
+                <span class="sr-only">Switch theme</span>
+                <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
+                <i class="moon-icon" data-feather="moon" aria-hidden="true"></i>
+            </button>
+            <div class="nav-user-wrapper">
+                <button href="##" class="nav-user-btn dropdown-btn" title="User" type="button">
+                    <span class="sr-only">User</span>
+                    <span class="nav-user-img">
+                       <picture>
+                          <source srcset="{{ asset('bundles/elegantbootstraptemplate/img/user.png') }}" type="image/webp">
+                          <img src="{{ asset('bundles/elegantbootstraptemplate/img/user.png') }}" alt="User">
+                       </picture>
+                    </span>
+                </button>
+                <ul class="users-item-dropdown nav-user-dropdown dropdown">
+                    <li>
+                        <a href="{{ path('kmj_user_profile') }}">
+                            <i data-feather="user" aria-hidden="true"></i>
+                            <span>{{ 'profile'|trans }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('kmj_user_change_password') }}">
+                            <i data-feather="settings" aria-hidden="true"></i>
+                            <span>{{ 'change_password'|trans }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="danger" href="{{ path('kmj_user_logout') }}">
+                            <i data-feather="log-out" aria-hidden="true"></i>
+                            <span>{{ 'logout'|trans }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+ </nav>

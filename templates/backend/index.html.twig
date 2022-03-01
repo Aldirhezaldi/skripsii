@@ -1,0 +1,12 @@
+{# <h2>TEST</h2>
+
+<a class="danger" href="{{ path('kmj_user_logout') }}">logout</a> #}
+{% extends "@ElegantBootstrapTemplate/base.html.twig" %}
+{% block title %}
+    <title>{{ 'index'|trans }}</title>
+{% endblock %}
+{% block body %}
+    <a>Welcome, {{ kmj_user.username }}</a>
+    </br>
+    <a>Anda login sebagai {{ kmj_user.name }}</a>
+{% endblock %}

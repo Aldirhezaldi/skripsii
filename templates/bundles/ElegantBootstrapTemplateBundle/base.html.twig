@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+       {% block metas %}
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% endblock %}
+        {% block title %}
+            <title>ElegantBootstrapTemplate</title>
+        {% endblock %}
+        {% block stylesheets %}
+        {{ include('@ElegantBootstrapTemplate/_stylesheets.twig') }}
+        {% endblock %}
+      
+        {% block header_javascripts %}
+            <script src="{{ asset('bundles/elegantbootstraptemplate/js/jquery-3.2.1.min.js') }}" ></script>
+        {% endblock %}
+   </head>
+   <body>
+      <div class="layer"></div>
+      <!-- ! Body -->
+      <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+      <div class="page-flex">
+          <div class="modal fade" data-keyboard="false" data-backdrop="static" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+            <div class="modal-dialog modal-lg" id="modal-dialog">
+                <div class="modal-content">
+                    <div style="text-align: center">
+                        <img src="{{ asset('bundles/elegantbootstraptemplate/img/loading.gif') }}" style="width: 20px"/>
+                    </div>
+                </div>
+            </div>
+          </div>
+         {{ include('@ElegantBootstrapTemplate/_sidebar.twig') }}
+         <div class="main-wrapper">
+            <!-- ! Main nav -->
+            {{ include('@ElegantBootstrapTemplate/_header.twig') }}
+            <!-- ! Main -->
+            <main class="main users chart-page" id="skip-target">
+                <div class="container">
+                   {% block body %}{% endblock %}
+                </div>
+            </main>
+            <!-- ! Footer -->
+            <footer class="footer">
+                <div class="container footer--flex">
+                   <div class="footer-start">
+                      {{ include('@ElegantBootstrapTemplate/_copyright.twig') }}
+                   </div>
+                </div>
+             </footer>
+         </div>
+        </div>
+        {% block javascripts %}
+            {{ include('@ElegantBootstrapTemplate/_javascripts.twig') }}
+        {% endblock %}
+   </body>
+</html>

@@ -1,0 +1,10 @@
+user:
+    route:
+        login: kmj_user_login
+        login_success: 
+             ## ----- default redirect page ----
+            default: dashboard_index
+             ## ----- if multiple redirect ----
+            # roles: 
+            #     - { role: ROLE_USER, path: homepage }
+            #     - { role: ROLE_SUPER_USER, path: backend_dashboard }
