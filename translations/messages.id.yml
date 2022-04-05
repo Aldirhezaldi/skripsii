@@ -10,9 +10,22 @@ back_to_home: Back
 roles: Role
 name: Name
 skripsi: Skripsi
-dash: Dashboard
-data_klas: Data Klasifikasi
-perhitungan: Perhitungan
-hasil_klas: Hasil Klasifikasi
-dt_pokja: Data Pokja
-dt_ppk: Data PPK
+dash: DASHBOARD
+data_klas: DATA KLASIFIKIASI
+perhitungan: PERHITUNGAN
+hasil_klas: HASIL KLASIFIKASI
+dt_pokja: DATA POKJA
+dt_ppk: DATA PPK
+master: MASTER
+show: Show
+edit: Edit
+delete: Delete
+create: Create
+filter: Filter
+reset: Reset
+actions: Actions
+max_per_page: Max per Page
+nama_pokja: Nama Pokja
+surat_keputusan: Surat keputusan
+tanggal_sk: Tanggal Surat Keputusan
+dt_training: DATA TRAINING

@@ -21,13 +21,4 @@ class DataController extends AbstractKmjController
         ]);
     }
 
-    /**
-     * @Route("/ppk", name="ppk")
-     */
-    public function data_ppk()
-    {
-        return $this->render('backend/data_ppk.html.twig', [
-            'kmj_user' => $this->getUser(),
-        ]);
-    }
 }

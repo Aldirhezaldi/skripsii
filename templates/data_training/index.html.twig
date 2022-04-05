@@ -1,0 +1,66 @@
+{% extends "@ElegantBootstrapTemplate/page_layout.html.twig" %}
+
+{% block title %}
+
+<title>{{'dt_training'|trans}}</title>
+
+{% endblock %}
+
+{% block actions %}
+    <div class="pull-right">
+            <a class="btn btn-sm btn-outline-success" href="{{ path('app_data_training_create') }}" data-toggle="modal" data-target="#modal">
+            <span class="fa fa-plus"></span> {{ 'create'|trans }}</a>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{{ 'jenis_pengadaan'|trans }}</th>
+                    <th>{{ 'sumber_dana'|trans }}</th>
+                    <th>{{ 'jenis_paket'|trans }}</th>
+                    <th>{{ 'pagu'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ include('data_training/_filters.html.twig', {filter: filter}) }} 
+                    {% for data_training in data_trainings %}
+                <tr>
+                    <td>{{ data_training.jenisPengadaan }}</td>
+                    <td>{{ data_training.sumberDana }}</td>
+                    <td>{{ data_training.jenisPaket }}</td>
+                    <td>{{ data_training.pagu }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_data_training_show', {'id': data_training.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-desktop"></span> {{ 'show'|trans }}
+                        </a>
+                        <a class="btn btn-xs btn-outline-info" href="{{ path('app_data_training_edit', {'id': data_training.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-edit"></span> {{ 'edit'|trans }}
+                        </a>
+                            {{ include('data_training/_delete_form.html.twig', {data_training: data_training}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">{{ 'no_records_found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-2">
+        {{ include('data_training/_max_per_page.html.twig', {url: 'app_data_training_index'}) }}
+    </div>
+    <div class="pull-right">
+        <style>
+            .pagination {
+                margin : 0px;
+            }
+        </style>
+        <div class="pagerfanta pull-right">
+            {{ knp_pagination_render(data_trainings) }}
+        </div>
+    </div>
+{% endblock %}

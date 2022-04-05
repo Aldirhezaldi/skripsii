@@ -10,30 +10,12 @@
             </a>
         </div>
        <div class="sidebar-body">
-           
             <ul class="sidebar-body-menu">
                 <li>
                     <a class="content" href="{{ path('dashboard_index') }}">
                         <span class="icon document" aria-hidden="true"></span>{{ 'dash'|trans }}
                         </span>
                     </a>
-                </li>
-            </ul>
-            <ul class="sidebar-body-menu">
-                <li>
-                    <a class="show-cat-btn" href="##">
-                        <span class="icon document" aria-hidden="true"></span>{{ 'data_klas'|trans }}
-                            <span class="category__btn transparent-btn" title="Open list">
-                            <span class="sr-only">Open list</span>
-                            <span class="icon arrow-down" aria-hidden="true"></span>
-                        </span>
-                    </a>
-                    <ul class="cat-sub-menu">
-                       <li>
-                           <a href="{{ path('data_pokja') }}">{{ 'dt_pokja'|trans }}</a>
-                           <a href="{{ path('data_ppk') }}">{{ 'dt_ppk'|trans }}</a>
-                       </li>
-                    </ul>
                 </li>
             </ul>
             <ul class="sidebar-body-menu">
@@ -50,6 +32,23 @@
                         <span class="icon document" aria-hidden="true"></span>{{ 'hasil_klas'|trans }}
                         </span>
                     </a>
+                </li>
+            </ul>
+            <ul class="sidebar-body-menu">
+                <li>
+                    <a class="show-cat-btn" href="##">
+                        <span class="icon document" aria-hidden="true"></span>{{ 'master'|trans }}
+                            <span class="category__btn transparent-btn" title="Open list">
+                            <span class="sr-only">Open list</span>
+                            <span class="icon arrow-down" aria-hidden="true"></span>
+                        </span>
+                    </a>
+                    <ul class="cat-sub-menu">
+                       <li>
+                           <a href="{{ path('app_pokja_index') }}">{{ 'dt_pokja'|trans }}</a>
+                           <a href="{{ path('app_data_training_index') }}">{{ 'dt_training'|trans }}</a>
+                       </li>
+                    </ul>
                 </li>
             </ul>
        </div>

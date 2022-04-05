@@ -1,0 +1,33 @@
+{% extends '@BaseController/modal-layout.html.twig' %}
+
+{% block title %}{{ 'show'|trans}} {{ 'datatraining'|trans }}{% endblock %}
+
+{% block content %}
+    
+    <table class="table table-bordered table-hover">
+        <tbody>
+                        <tr>
+                <th width="30%">Id</th>
+                <td>{{ data_training.id }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">Jenis_pengadaan</th>
+                <td>{{ data_training.jenisPengadaan }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">Sumber_dana</th>
+                <td>{{ data_training.sumberDana }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">Jenis_paket</th>
+                <td>{{ data_training.jenisPaket }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">Pagu</th>
+                <td>{{ data_training.pagu }}</td>
+            </tr>
+                    </tbody>
+    </table>
+        
+{% endblock %} 
+    

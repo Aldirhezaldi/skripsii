@@ -1,0 +1,17 @@
+{{ form_start(filter) }}
+<tr>
+    {# <td>{{ form_widget(filter.pokja)}}</td> #}
+    <td>{{ form_widget(filter.jenis_pengadaan) }}</td>
+    <td>{{ form_widget(filter.sumber_dana) }}</td>
+    <td>{{ form_widget(filter.jenis_paket) }}</td>
+    <td>{{ form_widget(filter.pagu) }}</td>
+    <td>
+        <button type="submit" name="submit" class="btn btn-outline-success btn-sm">
+            <i class="fa fa-search"></i> <span>{{ 'filter'|trans }}</span>
+        </button>
+        <a href="{{path('app_data_training_index', {'_reset' : true })}}" class="btn btn-sm btn-outline-secondary">
+            <i class="fa fa-recycle"></i> <span>{{ 'reset'|trans }}</span>
+        </a>
+    </td>
+</tr>
+{{ form_end(filter) }}

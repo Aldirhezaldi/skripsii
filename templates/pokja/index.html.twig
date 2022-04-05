@@ -1,0 +1,60 @@
+{% extends "@ElegantBootstrapTemplate/page_layout.html.twig" %}
+{% block title %}
+    <title>{{'dt_pokja'|trans}}</title>
+{% endblock %}
+{% block actions %}
+    <div class="pull-right">
+        <a class="btn btn-sm btn-outline-success" href="{{ path('app_pokja_create') }}" data-toggle="modal" data-target="#modal">
+        <span class="fa fa-plus"></span> {{ 'create'|trans }}</a>
+    </div>
+{% endblock %}
+{% block content %}
+        <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{{ 'nama_pokja'|trans }}</th>
+                    <th>{{ 'surat_keputusan'|trans }}</th>
+                    <th>{{ 'tanggal_sk'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ include('pokja/_filters.html.twig', {filter: filter}) }} 
+                    {% for pokja in pokjas %}
+                <tr>
+                    <td>{{ pokja.namaPokja }}</td>
+                    <td>{{ pokja.suratKeputusan }}</td>
+                    <td>{{ pokja.tanggalSk ? pokja.tanggalSk|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_pokja_show', {'id': pokja.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-desktop"></span> {{ 'show'|trans }}
+                        </a>
+                        <a class="btn btn-xs btn-outline-warning" href="{{ path('app_pokja_edit', {'id': pokja.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-edit"></span> {{ 'edit'|trans }}
+                        </a>
+                            {{ include('pokja/_delete_form.html.twig', {pokja: pokja}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">{{ 'no_records_found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-2">
+        {{ include('pokja/_max_per_page.html.twig', {url: 'app_pokja_index'}) }}
+    </div>
+    <div class="pull-right">
+        <style>
+            .pagination {
+                margin : 0px;
+            }
+        </style>
+        <div class="pagerfanta pull-right">
+            {{ knp_pagination_render(pokjas) }}
+        </div>
+    </div>
+{% endblock %}

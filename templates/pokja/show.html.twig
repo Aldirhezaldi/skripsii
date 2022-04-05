@@ -1,0 +1,29 @@
+{% extends '@BaseController/modal-layout.html.twig' %}
+
+{% block title %}{{ 'show'|trans}} {{ 'pokja'|trans }}{% endblock %}
+
+{% block content %}
+    
+    <table class="table table-bordered table-hover">
+        <tbody>
+                        <tr>
+                <th width="30%">Id</th>
+                <td>{{ pokja.id }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">{{ 'nama_pokja'|trans }}</th>
+                <td>{{ pokja.namaPokja }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">{{ 'surat_keputusan'|trans }}</th>
+                <td>{{ pokja.suratKeputusan }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">{{ 'tanggal_sk' |trans }}</th>
+                <td>{{ pokja.tanggalSk ? pokja.tanggalSk|date('Y-m-d') : '' }}</td>
+            </tr>
+                    </tbody>
+    </table>
+        
+{% endblock %} 
+    
