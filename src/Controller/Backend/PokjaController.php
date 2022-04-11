@@ -9,6 +9,8 @@ use App\Filter\PokjaFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Kematjaya\BaseControllerBundle\Controller\BaseLexikFilterController as BaseController;
 
 /**
@@ -19,12 +21,15 @@ class PokjaController extends BaseController
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(Request $request, PokjaRepository $pokjaRepository): Response
+    public function index(Request $request, PokjaRepository $pokjaRepository, BreacrumbBuilder $builder): Response
     {
         $form = $this->createFormFilter(PokjaFilterType::class);
+        $builder->add('Master');
+        $builder->add('Pokja');
         $queryBuilder = $this->buildFilter($request, $form, $pokjaRepository->createQueryBuilder('this'));
                 
         return $this->render('pokja/index.html.twig', [
+            'kmj_user' => $this->getUser(),
             'pokjas' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView() 
         ]);
@@ -36,7 +41,7 @@ class PokjaController extends BaseController
         public function create(Request $request): Response
     {
             $pokja = new Pokja();
-                $form = $this->createForm(PokjaType::class, $pokja, [
+            $form = $this->createForm(PokjaType::class, $pokja, [
             'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_pokja_create')]
         ]);
         $result = parent::processFormAjax($request, $form);

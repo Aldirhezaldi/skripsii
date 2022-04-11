@@ -9,6 +9,7 @@
         {% block title %}
             <title>ElegantBootstrapTemplate</title>
         {% endblock %}
+        <link rel="icon" href="{{ asset('assets/logo_pti.png') }}">
         {% block stylesheets %}
         {{ include('@ElegantBootstrapTemplate/_stylesheets.twig') }}
         {% endblock %}
@@ -38,6 +39,14 @@
             <!-- ! Main -->
             <main class="main users chart-page" id="skip-target">
                 <div class="container">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-1">
+                        <div style="width: 100%;">
+                            {{ kmj_breadcrumb() }}
+                            <div class="float-right">
+		                        {{ "now"|date(timezone="Asia/Jakarta") }}
+	                        </div>
+                        </div>
+                    </div>
                    {% block body %}{% endblock %}
                 </div>
             </main>

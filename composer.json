@@ -7,6 +7,7 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "kematjaya/breadcrumb-bundle": "^1.2",
         "kematjaya/crud-maker-bundle": "^2.1",
         "kematjaya/elegant-bootstrap-template-bundle": "^1.1",
         "kematjaya/user-bundle": "^4.3",

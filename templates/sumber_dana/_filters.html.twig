@@ -1,14 +1,12 @@
 {{ form_start(filter) }}
 <tr>
-    <td>{{ form_widget(filter.no) }}
-                        <td>{{ form_widget(filter.nama_pokja) }}</td>
-            <td>{{ form_widget(filter.surat_keputusan) }}</td>
-            <td>{{ form_widget(filter.tanggal_sk) }}</td>
+<td>{{ form_widget(filter.no) }}
+                        <td>{{ form_widget(filter.nama_sumber_dana) }}</td>
         <td>
         <button type="submit" name="submit" class="btn btn-outline-success btn-sm">
             <i class="fa fa-search"></i> <span>{{ 'filter'|trans }}</span>
         </button>
-        <a href="{{path('app_pokja_index', {'_reset' : true })}}" class="btn btn-sm btn-outline-secondary">
+        <a href="{{path('app_sumber_dana_index', {'_reset' : true })}}" class="btn btn-sm btn-outline-secondary">
             <i class="fa fa-recycle"></i> <span>{{ 'reset'|trans }}</span>
         </a>
     </td>

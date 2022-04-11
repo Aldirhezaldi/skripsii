@@ -1,0 +1,36 @@
+{% extends "@ElegantBootstrapTemplate/base.html.twig" %}
+
+{% block body %}
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">
+						{% block page_title %}{% endblock %}
+					</h4>
+					{% block actions %}{% endblock %}
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						{{ include('@ElegantBootstrapTemplate/_flashes.twig') }}
+						{% block content %}{% endblock %}
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-lg-4">
+							{% block page_footer %}{% endblock %}
+						</div>
+						<div class="col-lg-4"></div>
+						<div class="col-lg-4">
+							<div class="pagerfanta pull-right">
+								{% block pagination %}{% endblock %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -13,6 +13,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th>{{ 'No'|trans}}</th>
                     <th>{{ 'nama_pokja'|trans }}</th>
                     <th>{{ 'surat_keputusan'|trans }}</th>
                     <th>{{ 'tanggal_sk'|trans }}</th>
@@ -23,6 +24,7 @@
                 {{ include('pokja/_filters.html.twig', {filter: filter}) }} 
                     {% for pokja in pokjas %}
                 <tr>
+                    <td>{{ loop.index }}</td>
                     <td>{{ pokja.namaPokja }}</td>
                     <td>{{ pokja.suratKeputusan }}</td>
                     <td>{{ pokja.tanggalSk ? pokja.tanggalSk|date('Y-m-d') : '' }}</td>

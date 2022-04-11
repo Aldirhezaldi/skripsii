@@ -29,3 +29,12 @@ nama_pokja: Nama Pokja
 surat_keputusan: Surat keputusan
 tanggal_sk: Tanggal Surat Keputusan
 dt_training: DATA TRAINING
+sumber_dn: SUMBER DANA
+jns_pengadaan: JENIS PENGADAAN
+nama_sumber_dana: Sumber Dana
+nama_jenis_pengadaan: Jenis Pengadaan
+jns_paket: JENIS PAKET
+nama_jenis_paket: Jenis Paket
+send_data: Send Data
+successfull: Successfull
+no_records_found: No record founds

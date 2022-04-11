@@ -94,6 +94,9 @@
     "kematjaya/base-controller-bundle": {
         "version": "2.1.0"
     },
+    "kematjaya/breadcrumb-bundle": {
+        "version": "1.2.4"
+    },
     "kematjaya/crud-maker-bundle": {
         "version": "2.1"
     },
@@ -325,6 +328,9 @@
         "version": "v5.4.5"
     },
     "symfony/string": {
+        "version": "v5.4.3"
+    },
+    "symfony/templating": {
         "version": "v5.4.3"
     },
     "symfony/translation": {

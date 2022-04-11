@@ -13,9 +13,9 @@ use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 use Kematjaya\BaseControllerBundle\Filter\AbstractFilterType;
 
 /**
- * Description of App\Filter\PokjaFilterType *
+ * Description of App\Filter\JenisPengadaanFilterType *
  */
-class PokjaFilterType extends AbstractFilterType
+class JenisPengadaanFilterType extends AbstractFilterType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,13 +25,7 @@ class PokjaFilterType extends AbstractFilterType
             'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
 
-                ->add('nama_pokja', Filters\TextFilterType::class, [
-           'condition_pattern' => FilterOperands::STRING_CONTAINS
-        ])
-                    ->add('surat_keputusan', Filters\TextFilterType::class, [
-           'condition_pattern' => FilterOperands::STRING_CONTAINS
-        ])
-                    ->add('tanggal_sk', Filters\TextFilterType::class, [
+                ->add('nama_jenis_pengadaan', Filters\TextFilterType::class, [
            'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
             ;
