@@ -6,27 +6,27 @@
     
     <table class="table table-bordered table-hover">
         <tbody>
-                        <tr>
+            {# <tr>
                 <th width="30%">Id</th>
                 <td>{{ data_training.id }}</td>
+            </tr> #}
+            <tr>
+                <th width="30%">Nama Kelompok Kerja</th>
+                <td>{{ data_training.Pokja }}</td>
             </tr>
-                        <tr>
-                <th width="30%">Jenis_pengadaan</th>
-                <td>{{ data_training.jenisPengadaan }}</td>
+            <tr>
+                <th width="30%">Jenis Pengadaan</th>
+                <td>{{ data_training.JenisPengadaan }}</td>
             </tr>
-                        <tr>
-                <th width="30%">Sumber_dana</th>
-                <td>{{ data_training.sumberDana }}</td>
+            <tr>
+                <th width="30%">Sumber Dana</th>
+                <td>{{ data_training.SumberDana }}</td>
             </tr>
-                        <tr>
-                <th width="30%">Jenis_paket</th>
-                <td>{{ data_training.jenisPaket }}</td>
+            <tr>
+                <th width="30%">Jenis Paket</th>
+                <td>{{ data_training.JenisPaket }}</td>
             </tr>
-                        <tr>
-                <th width="30%">Pagu</th>
-                <td>{{ data_training.pagu }}</td>
-            </tr>
-                    </tbody>
+        </tbody>
     </table>
         
 {% endblock %} 

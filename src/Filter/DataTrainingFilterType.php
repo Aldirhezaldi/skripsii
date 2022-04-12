@@ -21,7 +21,10 @@ class DataTrainingFilterType extends AbstractFilterType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('jenis_pengadaan', Filters\TextFilterType::class, [
+                ->add('pokja', Filters\TextFilterType::class, [
+           'condition_pattern' => FilterOperands::STRING_CONTAINS
+        ])
+                    ->add('jenis_pengadaan', Filters\TextFilterType::class, [
            'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
                     ->add('sumber_dana', Filters\TextFilterType::class, [
@@ -30,12 +33,6 @@ class DataTrainingFilterType extends AbstractFilterType
                     ->add('jenis_paket', Filters\TextFilterType::class, [
            'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
-                    ->add('pagu', Filters\TextFilterType::class, [
-           'condition_pattern' => FilterOperands::STRING_CONTAINS
-        ])
-      //               ->add('pokja', Filters\TextFilterType::class, [
-      //      'condition_pattern' => FilterOperands::STRING_CONTAINS
-      //   ])
             ;
     }
 }

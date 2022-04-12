@@ -39,6 +39,11 @@ class Pokja
      */
     private $dataTrainings;
 
+    public function __toString() 
+    {
+        return $this->getNamaPokja();
+    }
+    
     public function __construct()
     {
         $this->dataTrainings = new ArrayCollection();

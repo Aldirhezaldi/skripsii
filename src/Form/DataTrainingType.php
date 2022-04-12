@@ -3,47 +3,39 @@
 namespace App\Form;
 
 use App\Entity\DataTraining;
+use App\Entity\JenisPaket;
+use App\Entity\JenisPengadaan;
 use App\Entity\Pokja;
+use App\Entity\SumberDana;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\ChoiceList\ChoiceList;
 
 class DataTrainingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('jenis_pengadaan', ChoiceType::class, [
-                'choices' => [
-                    'BARANG' => 'BARANG',
-                    'KONSULTASI' => 'KONSULTASI',
-                    'KONSTRUKSI' => 'KONSTRUKSI',
-                    'JASA LAINNYA' => 'JASA LAINNYA'
-                ],
-            ])
-            ->add('sumber_dana', ChoiceType::class, [
-                'choices' => [
-                    'APBD' => 'APBD',
-                    'APBN' => 'APBN',
-                    'BLUD' => 'BLUD',
-                    'LAINNYA' => 'LAINNYA'
-                ],
-            ])
-            ->add('jenis_paket', ChoiceType::class, [
-                'choices' => [
-                    'umum' => 'umum',
-                    'dikecualikan' => 'dikecualikan'
-                ],
-            ])
-            ->add('pagu', )
             ->add('pokja', EntityType::class, [
                 'class' => Pokja::class,
                 'choice_label' => 'nama_pokja',
-                'required' => false,
-                'attr' => ['class' => 'form-control']
+                'required' => false
+            ])
+            ->add('jenis_pengadaan', EntityType::class, [
+                'class' => JenisPengadaan::class,
+                'choice_label' => 'nama_jenis_pengadaan',
+                'required' => false
+            ])
+            ->add('sumber_dana', EntityType::class, [
+                'class' => SumberDana::class,
+                'choice_label' => 'nama_sumber_dana',
+                'required' => false
+            ])
+            ->add('jenis_paket', EntityType::class, [
+                'class' => JenisPaket::class,
+                'choice_label' => 'nama_jenis_paket',
+                'required' => false
             ])
         ;
     }

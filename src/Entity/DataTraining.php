@@ -23,24 +23,19 @@ class DataTraining
     private $pokja;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=JenisPengadaan::class, inversedBy="dataTrainings")
      */
     private $jenis_pengadaan;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=SumberDana::class, inversedBy="dataTrainings")
      */
     private $sumber_dana;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=JenisPaket::class, inversedBy="dataTrainings")
      */
     private $jenis_paket;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $pagu;
 
     public function getId(): ?int
     {
@@ -59,50 +54,38 @@ class DataTraining
         return $this;
     }
 
-    public function getJenisPengadaan(): ?string
+    public function getJenisPengadaan(): ?JenisPengadaan
     {
         return $this->jenis_pengadaan;
     }
 
-    public function setJenisPengadaan(string $jenis_pengadaan): self
+    public function setJenisPengadaan(?JenisPengadaan $jenis_pengadaan): self
     {
         $this->jenis_pengadaan = $jenis_pengadaan;
 
         return $this;
     }
 
-    public function getSumberDana(): ?string
+    public function getSumberDana(): ?SumberDana
     {
         return $this->sumber_dana;
     }
 
-    public function setSumberDana(string $sumber_dana): self
+    public function setSumberDana(?SumberDana $sumber_dana): self
     {
         $this->sumber_dana = $sumber_dana;
 
         return $this;
     }
 
-    public function getJenisPaket(): ?string
+    public function getJenisPaket(): ?JenisPaket
     {
         return $this->jenis_paket;
     }
 
-    public function setJenisPaket(string $jenis_paket): self
+    public function setJenisPaket(?JenisPaket $jenis_paket): self
     {
         $this->jenis_paket = $jenis_paket;
-
-        return $this;
-    }
-
-    public function getPagu(): ?int
-    {
-        return $this->pagu;
-    }
-
-    public function setPagu(int $pagu): self
-    {
-        $this->pagu = $pagu;
 
         return $this;
     }

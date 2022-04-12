@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JenisPengadaanRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,21 @@ class JenisPengadaan
      */
     private $nama_jenis_pengadaan;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DataTraining::class, mappedBy="jenis_pengadaan")
+     */
+    private $dataTrainings;
+
+    public function __toString() 
+    {
+        return $this->getNamaJenisPengadaan();
+    }
+
+    public function __construct()
+    {
+        $this->dataTrainings = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +52,36 @@ class JenisPengadaan
     public function setNamaJenisPengadaan(string $nama_jenis_pengadaan): self
     {
         $this->nama_jenis_pengadaan = $nama_jenis_pengadaan;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DataTraining>
+     */
+    public function getDataTrainings(): Collection
+    {
+        return $this->dataTrainings;
+    }
+
+    public function addDataTraining(DataTraining $dataTraining): self
+    {
+        if (!$this->dataTrainings->contains($dataTraining)) {
+            $this->dataTrainings[] = $dataTraining;
+            $dataTraining->setJenisPengadaan($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDataTraining(DataTraining $dataTraining): self
+    {
+        if ($this->dataTrainings->removeElement($dataTraining)) {
+            // set the owning side to null (unless already changed)
+            if ($dataTraining->getJenisPengadaan() === $this) {
+                $dataTraining->setJenisPengadaan(null);
+            }
+        }
 
         return $this;
     }

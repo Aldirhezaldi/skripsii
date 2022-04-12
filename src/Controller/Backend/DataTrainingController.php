@@ -34,11 +34,11 @@ class DataTrainingController extends BaseController
     /**
      * @Route("/create", name="create", methods={"GET","POST"})
      */
-        public function create(Request $request): Response
+    public function create(Request $request): Response
     {
-            $dataTraining = new DataTraining();
-            $form = $this->createForm(DataTrainingType::class, $dataTraining, [
-            'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_data_training_create')]
+        $dataTraining = new DataTraining();
+        $form = $this->createForm(DataTrainingType::class, $dataTraining, [
+        'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_data_training_create')]
         ]);
         $result = parent::processFormAjax($request, $form);
         if ($result['process']) {
@@ -54,9 +54,9 @@ class DataTrainingController extends BaseController
     /**
      * @Route("/{id}/show", name="show", methods={"GET"})
      */
-        public function show(DataTraining $dataTraining): Response
+    public function show(DataTraining $dataTraining): Response
     {
-            return $this->render('data_training/show.html.twig', [
+        return $this->render('data_training/show.html.twig', [
             'data_training' => $dataTraining,
         ]);
     }
@@ -64,10 +64,10 @@ class DataTrainingController extends BaseController
     /**
      * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
      */
-        public function edit(Request $request, DataTraining $dataTraining): Response
+    public function edit(Request $request, DataTraining $dataTraining): Response
     {
-            $form = $this->createForm(DataTrainingType::class, $dataTraining, [
-            'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_data_training_edit', ['id' => $dataTraining->getId()])]
+        $form = $this->createForm(DataTrainingType::class, $dataTraining, [
+        'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_data_training_edit', ['id' => $dataTraining->getId()])]
         ]);
         $result = parent::processFormAjax($request, $form);
         if ($result['process']) {
