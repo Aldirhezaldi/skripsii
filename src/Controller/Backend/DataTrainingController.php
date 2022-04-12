@@ -8,6 +8,7 @@ use App\Repository\DataTrainingRepository;
 use App\Filter\DataTrainingFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
 use Symfony\Component\Routing\Annotation\Route;
 use Kematjaya\BaseControllerBundle\Controller\BaseLexikFilterController as BaseController;
 
@@ -19,8 +20,10 @@ class DataTrainingController extends BaseController
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(Request $request, DataTrainingRepository $dataTrainingRepository): Response
+    public function index(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
     {
+        $builder->add('Master');
+        $builder->add('Data Training');
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
                 

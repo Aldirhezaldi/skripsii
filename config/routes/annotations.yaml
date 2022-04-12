@@ -6,5 +6,8 @@ kernel:
     resource: ../../src/Kernel.php
     type: annotation
 
+regwar_captcha_routing:
+    resource: "@GregwarCaptchaBundle/Resources/config/routing/routing.yml"
+    
 kmj_user:
     resource: '@UserBundle/Resources/config/routing/all.xml'

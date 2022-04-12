@@ -15,6 +15,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
+                    <th>{{ 'No'|trans }}</th>
                     <th>{{ 'nama_pokja'|trans }}</th>
                     <th>{{ 'jenis_pengadaan'|trans }}</th>
                     <th>{{ 'sumber_dana'|trans }}</th>
@@ -26,6 +27,7 @@
                 {{ include('data_training/_filters.html.twig', {filter: filter}) }} 
                     {% for data_training in data_trainings %}
                 <tr>
+                    <td>{{ loop.index }}</td>
                     <td>{{ data_training.Pokja }}</td>
                     <td>{{ data_training.JenisPengadaan }}</td>
                     <td>{{ data_training.SumberDana }}</td>

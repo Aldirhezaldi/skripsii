@@ -1,0 +1,11 @@
+gregwar_captcha:
+  width: 120
+  height: 35
+  distortion: false
+  max_behind_lines: 0
+  max_front_lines: 0
+  quality: 100
+  charset: 23456789
+  as_url: true
+  reload: true
+  background_color: [255, 255, 255]
