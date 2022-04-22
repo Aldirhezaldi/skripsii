@@ -11,6 +11,8 @@
         "kematjaya/crud-maker-bundle": "^2.1",
         "kematjaya/elegant-bootstrap-template-bundle": "^1.1",
         "kematjaya/user-bundle": "^4.3",
+        "php-ai/php-ml": "^0.9.0",
+        "rubix/ml": "^0.4.2",
         "sensio/framework-extra-bundle": "^6.2",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",

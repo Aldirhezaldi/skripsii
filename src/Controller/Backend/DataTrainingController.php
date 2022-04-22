@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controller\Backend;
+// require_once __DIR__. '/vendor/autoload.php';
 
 use App\Entity\DataTraining;
 use App\Form\DataTrainingType;
@@ -8,6 +8,11 @@ use App\Repository\DataTrainingRepository;
 use App\Filter\DataTrainingFilterType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Rubix\ML\Extractors\CSV;
+use Rubix\ML\Extractors\ColumnPicker;
+use Rubix\ML\Datasets\Labeled;
+use Rubix\ML\Transformers\NumericStringConverter;
+use Rubix\ML\Transformers\OneHotEncoder;
 use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
 use Symfony\Component\Routing\Annotation\Route;
 use Kematjaya\BaseControllerBundle\Controller\BaseLexikFilterController as BaseController;
@@ -24,13 +29,25 @@ class DataTrainingController extends BaseController
     {
         $builder->add('Master');
         $builder->add('Data Training');
+        $dataset = Labeled::fromIterator(
+            new ColumnPicker(new CSV('./dataset/NON ENCODE.csv', true), [
+                "jenis pengadaan","SUMBER DANA","pagu","JENIS PAKET","nama" 
+            ])
+        )->apply(new NumericStringConverter());
+        $dataset->apply(new OneHotEncoder);
+        // echo $dataset->apply(new OneHotEncoder);
+        dump($dataset->apply(new OneHotEncoder));exit();
+
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
-                
+             
+        // dump($dataTrainingRepository->createQueryBuilder('this'));exit();
+
         return $this->render('data_training/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
-            'filter' => $form->createView() 
+            'filter' => $form->createView(),
+            'dataset' => $dataset->apply(new OneHotEncoder)
         ]);
     }
 
@@ -40,6 +57,7 @@ class DataTrainingController extends BaseController
     public function create(Request $request): Response
     {
         $dataTraining = new DataTraining();
+        
         $form = $this->createForm(DataTrainingType::class, $dataTraining, [
         'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_data_training_create')]
         ]);

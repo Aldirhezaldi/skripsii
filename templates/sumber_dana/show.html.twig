@@ -1,17 +1,17 @@
 {% extends '@BaseController/modal-layout.html.twig' %}
 
-{% block title %}{{ 'show'|trans}} {{ 'sumberdana'|trans }}{% endblock %}
+{% block title %}{{ 'show'|trans}} {{ 'nama_sumber_dana'|trans }}{% endblock %}
 
 {% block content %}
     
     <table class="table table-bordered table-hover">
         <tbody>
-                        <tr>
+                        {# <tr>
                 <th width="30%">Id</th>
                 <td>{{ sumber_dana.id }}</td>
-            </tr>
+            </tr> #}
                         <tr>
-                <th width="30%">Nama_sumber_dana</th>
+                <th width="30%">Nama Sumber Dana</th>
                 <td>{{ sumber_dana.namaSumberDana }}</td>
             </tr>
                     </tbody>

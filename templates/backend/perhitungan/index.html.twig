@@ -1,0 +1,25 @@
+{% extends "@ElegantBootstrapTemplate/page_layout.html.twig" %}
+
+{% block title %}
+    <title>{{'Perhitungan'|trans}}</title>
+{% endblock %}
+
+{% block actions %}
+    
+{% endblock %}
+{% block content %}
+    <form actions="" method="POST" enctype="multipart/form-data">
+        <label for="">Jenis Pengadaan</label>
+        <input type="text" name="jenis_pengadaan"> <br>
+        <label for="">SUMBER DANA</label>
+        <input type="text" name="sumber_dana"> <br>
+        <label for="">Jenis Paket</label>
+        <input type="text" name="jenis_paket"> <br>
+        {{}}
+
+        
+
+        <button type="submit" name="proses">Hitung</button>
+    </form>
+            
+{% endblock %}
