@@ -6,6 +6,7 @@ use App\Entity\DataTraining;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -43,6 +44,28 @@ class DataTrainingRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function oneHotEncodeByName()
+    {
+        // $qb = $this->createQueryBuilder('d')
+        //     ->select('d.id, count(CASE WHEN j.id = 1 THEN 1 END) as BARANG,
+        //         count(CASE WHEN j.id = 2 THEN 1 END) as KONSTRUKSI,
+        //         count(CASE WHEN j.id = 3 THEN 1 END) as KONSULTASI,
+        //         count(CASE WHEN j.id = 1 THEN 1 END) as JASA_LAINNYA,
+        //         count(CASE WHEN s.id = 1 THEN 1 END) as APBD,
+        //         count(CASE WHEN s.id = 2 THEN 1 END) as APBN, 
+        //         count(CASE WHEN s.id = 3 THEN 1 END) as BLUD,
+        //         count(CASE WHEN s.id = 4 THEN 1 END) as LAINNYA,
+        //         count(CASE WHEN P.id = 1 THEN 1 END) as umum,
+        //         count(CASE WHEN p.id = 2 THEN 1 END) as dikecualikan')
+        //     ->join('d.jenis_pengadaan', 'j')
+        //     ->join('d.jenis_paket', 'p')
+        //     ->join('d.sumber_dana', 's')
+        //     ->groupBy('d.id');
+        // return $qb->getQuery()->getResult();
+        // return $qb->getQuery()->getResult();
+
     }
 
     // /**

@@ -33,9 +33,9 @@ class DataTraining
     private $sumber_dana;
 
     /**
-     * @ORM\ManyToOne(targetEntity=JenisPaket::class, inversedBy="dataTrainings")
+     * @ORM\ManyToOne(targetEntity=JenisKontrak::class, inversedBy="dataTrainings")
      */
-    private $jenis_paket;
+    private $jenis_kontrak;
 
     public function getId(): ?int
     {
@@ -78,14 +78,14 @@ class DataTraining
         return $this;
     }
 
-    public function getJenisPaket(): ?JenisPaket
+    public function getJenisKontrak(): ?JenisKontrak
     {
-        return $this->jenis_paket;
+        return $this->jenis_kontrak;
     }
 
-    public function setJenisPaket(?JenisPaket $jenis_paket): self
+    public function setJenisKontrak(?JenisKontrak $jenis_kontrak): self
     {
-        $this->jenis_paket = $jenis_paket;
+        $this->jenis_kontrak = $jenis_kontrak;
 
         return $this;
     }

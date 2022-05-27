@@ -1,0 +1,61 @@
+{% extends '@ElegantBootstrapTemplate/page_layout.html.twig' %}
+
+{% block title %}
+    <title>{{'jns_kont'|trans}}</title>
+{% endblock %}
+
+{% block actions %}
+    <div class="pull-right">
+        <a class="btn btn-sm btn-outline-success" href="{{ path('app_jenis_kontrak_create') }}" data-toggle="modal" data-target="#modal">
+        <span class="fa fa-plus"></span> {{ 'create'|trans }}</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{{ 'No'|trans }}</th>
+                    <th>{{ 'nama_jenis_kontrak'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ include('jenis_kontrak/_filters.html.twig', {filter: filter}) }} 
+                    {% for jenis_kontrak in jenis_kontraks %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ jenis_kontrak.namaJenisKontrak }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_jenis_kontrak_show', {'id': jenis_kontrak.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-desktop"></span> {{ 'show'|trans }}
+                        </a>
+                        <a class="btn btn-xs btn-outline-info" href="{{ path('app_jenis_kontrak_edit', {'id': jenis_kontrak.id}) }}" data-toggle="modal" data-target="#modal">
+                            <span class="fa fa-edit"></span> {{ 'edit'|trans }}
+                        </a>
+                            {{ include('jenis_kontrak/_delete_form.html.twig', {jenis_kontrak: jenis_kontrak}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="1">{{ 'no_records_found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-2">
+        {{ include('jenis_kontrak/_max_per_page.html.twig', {url: 'app_jenis_kontrak_index'}) }}
+    </div>
+    <div class="pull-right">
+        <style>
+            .pagination {
+                margin : 0px;
+            }
+        </style>
+        <div class="pagerfanta pull-right">
+            {{ knp_pagination_render(jenis_kontraks) }}
+        </div>
+    </div>
+{% endblock %}

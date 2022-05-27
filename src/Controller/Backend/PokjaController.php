@@ -24,6 +24,7 @@ class PokjaController extends BaseController
     public function index(Request $request, PokjaRepository $pokjaRepository, BreacrumbBuilder $builder): Response
     {
         $form = $this->createFormFilter(PokjaFilterType::class);
+        $get = $pokjaRepository->getAllPokja();
         $builder->add('Master');
         $builder->add('Pokja');
         $queryBuilder = $this->buildFilter($request, $form, $pokjaRepository->createQueryBuilder('this'));
@@ -31,7 +32,8 @@ class PokjaController extends BaseController
         return $this->render('pokja/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'pokjas' => parent::createPaginator($queryBuilder, $request), 
-            'filter' => $form->createView() 
+            'filter' => $form->createView() ,
+            'get'=> $get
         ]);
     }
 
@@ -39,7 +41,7 @@ class PokjaController extends BaseController
      * @Route("/create", name="create", methods={"GET","POST"})
      */
         public function create(Request $request): Response
-    {
+        {
             $pokja = new Pokja();
             $form = $this->createForm(PokjaType::class, $pokja, [
             'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_pokja_create')]

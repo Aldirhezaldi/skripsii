@@ -1,0 +1,176 @@
+:root {
+   --app-color-primary: #3c8dbc93;
+   --app-color-primary-700: #3c8dbc;
+   --app-color-secondary: blue;
+   --app-input-icon-width: 45px;
+   --app-input-height: 45px;
+   --app-text-color-input: #8492a6;
+}
+
+html, body { 
+   height: 100%; 
+}
+
+.login-wrapper {
+   height: 100%;
+   display: flex;
+   background-color: #f6f8fb;
+   overflow: hidden;
+}
+.media-login {
+   flex: none;
+   display: block;
+   width: calc(100% - 69%);
+   background-color: #fff;
+   background: var(--app-color-primary); /* fallback */
+   background: linear-gradient(to bottom, var(--app-color-primary), var(--app-color-primary-700));
+   position: relative;
+}
+.media-login .img-target {
+   /* max-width: 100%; */
+   /* position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   right: -60px; */
+   position: absolute;
+   bottom: 0;
+   right: 10px;
+}
+
+.content-login {
+   flex-grow: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   overflow-x: hidden;
+   overflow-y: auto;
+   position: relative;
+}
+.content-inner-login {
+   max-width: 525px;
+   width: 100%;
+   margin: 0 auto;
+   display: block;
+   padding: 0 1.15rem;
+}
+.card-login {
+   padding: 40px 32px;
+   border-radius: 6px;
+   background-color: #fff;
+   box-shadow: #9fa2bf2e 0px 9px 16px, rgba(159, 162, 191, 0.32) 0px 2px 2px;
+}
+.card-login__header { margin-bottom: 0; }
+
+.line-divider {
+   width: 75px;
+   height: 4px;
+   border-radius: 9999px;
+   background-color: var(--app-color-primary-700);
+   margin: 0.5rem 0 2.20rem;
+}
+
+.btn-theme-primary {
+   font-weight: 500;
+   color: #fff;
+   background-color: var(--app-color-primary);
+   border-color: var(--app-color-primary);
+}
+.btn-theme-primary:hover {
+   color: #fff;
+   background-color: var(--app-color-primary-700);
+   border-color: var(--app-color-primary-700);
+}
+
+
+/* === CUSTOM STYLE FORM === */
+.has-ml-captcha {
+   margin-left: 1.15rem;
+}
+.form-outlined {
+   margin-bottom: 1.25rem;
+}
+.form-outlined__input {
+   height: var(--app-input-height);
+   color: var(--app-text-color-input);
+}
+.form-outlined__input::placeholder {
+   color: var(--app-text-color-input);
+   font-size: 15px;
+}
+.form-outlined__input:focus {
+   box-shadow: 0 0 0 2px var(--app-color-primary);
+   border-color: transparent;
+}
+
+.form-outlined.has-floating {
+   position: relative;
+}
+.form-outlined.has-floating .form-outlined__input::placeholder {
+   color: transparent !important;
+}
+.form-outlined.has-floating .form-outlined__input:focus-visible {
+   text-shadow: none;
+}
+.form-outlined.has-floating .label-fieldset {
+   font-size: 15px;
+   position: absolute;
+   left: calc(var(--app-input-icon-width) - 3px);
+   top: 50%;
+   transform-origin: left top;
+   transform: translateY(-50%) scale(1);
+   transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+   margin: 0;
+   color: var(--app-text-color-input);
+}
+.form-outlined.has-floating .form-outlined__input:focus ~ .label-fieldset,
+.form-outlined.has-floating .form-outlined__input:not(:placeholder-shown) ~ .label-fieldset {
+   left: 10px;
+   transform: translateY(-130%) scale(.75);
+   padding: 2px 4px 2px 4px;
+   background: #fff;
+}
+.form-outlined.has-floating .form-outlined__input:focus ~ .label-fieldset {
+   color: var(--app-color-primary);
+}
+
+.form-outlined.has-floating .form-outlined__input {
+   padding: .375rem 2.75rem .375rem 2.5rem;
+}
+
+.form-outlined.has-captcha .captcha_image {
+   height: var(--app-input-height) !important;
+}
+
+.form-outlined__input-icon {
+   position: absolute;
+   top: 0;
+   left: 0;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: var(--app-input-icon-width);
+   color: var(--app-text-color-input);
+}
+.form-outlined__input-icon > i {
+   font-size: 1.15rem;
+}
+
+.bg-layer-absolute {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: calc(100% - 50%);
+   background-color: var(--app-color-primary);
+   z-index: 0;
+}
+
+@media screen and (max-width: 768px) {
+   .media-login {
+      display: none;
+   }
+   .content-login {
+      width: 100%;
+   }
+}

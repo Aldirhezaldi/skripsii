@@ -2,6 +2,7 @@
 
 namespace App\Controller\Backend;
 
+use App\Repository\PokjaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
@@ -18,32 +19,37 @@ class PerhitunganController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(BreacrumbBuilder $builder): Response
+    public function index(BreacrumbBuilder $builder, PokjaRepository $pokjaRepository): Response
     {
         $builder->add('Perhitungan Klasifikasi');
 
-        if (isset($_POST['proses'])){
+        $pokja = $pokjaRepository->getAllPokja();
+        dump($pokja);exit();
 
-            $dataset = new CsvDataset('./dataset/NON ENCODE.csv',true);
 
-            $samples = $dataset->getSamples();
-            $labels = $dataset->getTargets();
+        // if (isset($_POST['proses'])){
 
-            $dtesting[] = $_POST['jenis pengadaan'];
-            $dtesting[] = $_POST['SUMBER DANA'];
-            $dtesting[] = $_POST['JENIS PAKET'];
+        //     $dataset = new CsvDataset('./dataset/NON ENCODE.csv',true);
 
-            $class_hasil = "";
+        //     $samples = $dataset->getSamples();
+        //     $labels = $dataset->getTargets();
 
-            $classifier = new NaiveBayes();
+        //     $dtesting[] = $_POST['jenis pengadaan'];
+        //     $dtesting[] = $_POST['SUMBER DANA'];
+        //     $dtesting[] = $_POST['JENIS PAKET'];
 
-            $classifier->train($samples, $labels);
-            $class_hasil = $classifier->predict($dtesting);
+        //     $class_hasil = "";
 
-            return $this->json($class_hasil);
-        }
+        //     $classifier = new NaiveBayes();
+
+        //     $classifier->train($samples, $labels);
+        //     $class_hasil = $classifier->predict($dtesting);
+
+        //     return $this->json($class_hasil);
+        // }
         return $this->render('backend/perhitungan/index.html.twig', [
             'kmj_user' => $this->getUser(),
+            'pokja' => $pokja
             // 'class_hasil' => $class_hasil,
             
 

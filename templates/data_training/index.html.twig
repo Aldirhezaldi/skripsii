@@ -15,24 +15,24 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    {# <th>{{ 'No'|trans }}</th>
+                    <th>{{ 'No'|trans }}</th>
                     <th>{{ 'nama_pokja'|trans }}</th>
                     <th>{{ 'jenis_pengadaan'|trans }}</th>
                     <th>{{ 'sumber_dana'|trans }}</th>
-                    <th>{{ 'jenis_paket'|trans }}</th>
-                    <th>{{ 'actions'|trans }}</th> #}
-                    <th>{{'dataset'|trans }}</th>
+                    <th>{{ 'jenis_kontrak'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                    {# <th>{{'dataset'|trans }}</th> #}
                 </tr>
             </thead>
             <tbody>
                 {{ include('data_training/_filters.html.twig', {filter: filter}) }} 
                     {% for data_training in data_trainings %}
                 <tr>
-                    {# <td>{{ loop.index }}</td>
+                    <td>{{ loop.index }}</td>
                     <td>{{ data_training.Pokja }}</td>
                     <td>{{ data_training.JenisPengadaan }}</td>
                     <td>{{ data_training.SumberDana }}</td>
-                    <td>{{ data_training.JenisPaket }}</td>
+                    <td>{{ data_training.JenisKontrak }}</td>
                     <td>
                         <a class="btn btn-xs btn-outline-primary" href="{{ path('app_data_training_show', {'id': data_training.id}) }}" data-toggle="modal" data-target="#modal">
                             <span class="fa fa-desktop"></span> {{ 'show'|trans }}
@@ -41,8 +41,8 @@
                             <span class="fa fa-edit"></span> {{ 'edit'|trans }}
                         </a>
                             {{ include('data_training/_delete_form.html.twig', {data_training: data_training}) }}
-                    </td> #}
-                    <td>{{dataset}}</td>
+                    </td>
+                    {# <td>{{dataset}}</td> #}
                 </tr>
             {% else %}
                 <tr>

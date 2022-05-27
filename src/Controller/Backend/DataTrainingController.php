@@ -29,25 +29,33 @@ class DataTrainingController extends BaseController
     {
         $builder->add('Master');
         $builder->add('Data Training');
-        $dataset = Labeled::fromIterator(
-            new ColumnPicker(new CSV('./dataset/NON ENCODE.csv', true), [
-                "jenis pengadaan","SUMBER DANA","pagu","JENIS PAKET","nama" 
-            ])
-        )->apply(new NumericStringConverter());
-        $dataset->apply(new OneHotEncoder);
-        // echo $dataset->apply(new OneHotEncoder);
-        dump($dataset->apply(new OneHotEncoder));exit();
 
+        // $datatraining = $dataTrainingRepository->oneHotEncodeByName();
+        // dump($datatraining);exit();
+
+        // $em = $this->getDoctrine()->getManager();
+        // $data = $em->getRepository(DataTraining::class)->findAll();
+
+        // $query = $em->createQuery(
+        //     'SELECT
+        //         p.id,
+        //         j.id,
+        //         j.nama_pokja
+        //     FROM
+        //         App\Entity\DataTraining p
+        //     LEFT JOIN App\Entity\Pokja j WITH p.pokja_id = j.id'
+        // );
+        // $result = $query->execute();
+        // dump($result);exit;
+        // $get = $dataTrainingRepository->oneHotEncodeByName();
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
-             
-        // dump($dataTrainingRepository->createQueryBuilder('this'));exit();
-
         return $this->render('data_training/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView(),
-            'dataset' => $dataset->apply(new OneHotEncoder)
+            // 'data' =>$data
+            // 'get' => $get
         ]);
     }
 

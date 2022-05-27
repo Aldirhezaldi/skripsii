@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\DataTraining;
+use App\Entity\JenisKontrak;
 use App\Entity\JenisPaket;
 use App\Entity\JenisPengadaan;
 use App\Entity\Pokja;
@@ -32,9 +33,9 @@ class DataTrainingType extends AbstractType
                 'choice_label' => 'nama_sumber_dana',
                 'required' => false
             ])
-            ->add('jenis_paket', EntityType::class, [
-                'class' => JenisPaket::class,
-                'choice_label' => 'nama_jenis_paket',
+            ->add('jenis_kontrak', EntityType::class, [
+                'class' => JenisKontrak::class,
+                'choice_label' => 'nama_jenis_kontrak',
                 'required' => false
             ])
         ;

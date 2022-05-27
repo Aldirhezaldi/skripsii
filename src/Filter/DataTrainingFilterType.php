@@ -33,8 +33,8 @@ class DataTrainingFilterType extends AbstractFilterType
                     ->add('sumber_dana', Filters\TextFilterType::class, [
            'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
-                    ->add('jenis_paket', Filters\TextFilterType::class, [
-           'condition_pattern' => FilterOperands::STRING_CONTAINS
+        ->add('jenis_kontrak', Filters\TextFilterType::class, [
+            'condition_pattern' => FilterOperands::STRING_CONTAINS
         ])
             ;
     }

@@ -1,0 +1,46 @@
+{% extends '@User/security/base.html.twig' %}
+
+{% block title %}{{ 'login_page'|trans }}{% endblock %}
+
+{% block titlePage %}{{'login_page'|trans}}{% endblock %}
+
+{% block body %}
+   <div class="media-login">
+      
+      {# <div class="d-flex align-items-center pt-4 px-3 pb-3" style="background-color: #3c8dbc;">
+         <img src="{{ asset('assets/logo_pti.png') }}" width="90" alt="img" />
+         <h2 class="mb-0 text-white">E-Office</h2>
+      </div> #}
+      <img src="{{ asset('assets/eoffice_login.png')}}" class="img-fluid img-target" width="800" alt="img" />
+   </div>
+   <div class="content-login">
+      <div class="content-inner-login">
+         <div class="card-login">
+            <div class="card-login__header">
+               {# <h5 class="mb-1">Welcome back!!</h5> #}
+               <h3 class="mb-0" style="color: #3c4858;">Silahkan Login di Aplikasi Klasifikasi Pemilihan Kelompok Kerja (Pokja)</h3>
+               <div class="line-divider"></div>
+            </div>
+            
+
+            {{ form_start(form) }}
+               <div class="form-group form-outlined has-floating">
+                  <span class="form-outlined__input-icon"><i class="bi-person-fill"></i></span>
+                  {{ form_widget(form.username, {attr: {class: "form-control form-outlined__input", placeholder: "username"|trans, required:true, autofocus:true }}) }}
+                  <label class="label-fieldset">Username</label>
+               </div>
+               <div class="form-group form-outlined has-floating">
+                  <span class="form-outlined__input-icon"><i class="bi-key-fill"></i></span>
+                  {{ form_widget(form.password, {attr: {class: "form-control form-outlined__input", placeholder: "password"|trans }}) }}
+                  <label class="label-fieldset">Password</label>
+               </div>
+               <div class="form-group form-outlined has-captcha d-flex align-items-stretch">
+                {{ form_widget(form.captcha, {attr: {class: "form-control form-outlined__input has-ml-captcha", placeholder: "Input Captcha"|trans }}) }}
+               </div>
+               <button type="submit" class="btn btn-primary w-100">{{ 'login'|trans }} <i class="bi-arrow-right"></i></button>
+            {{ form_end(form) }}
+            
+         </div>
+      </div>
+   </div>
+{% endblock %}
