@@ -1,15 +1,18 @@
-<ol class="breadcrumb">
+<div class="breadcrumb">
     {% for breadcrumb in breadcrumbs %}
         {% if breadcrumb.isLast() %}
-        <li class="breadcrumb-item active" aria-current="page">
+        <div class="breadcrumb-item active" aria-current="page">
             {{ breadcrumb.getIcon()|raw }}
             <span><strong>{{ breadcrumb.getLabel() }}</strong></span>
-        </li>
+        </div>
+        <div style="position:absolute; right:25px;">
+            {{ "now"|date(timezone="Asia/Jakarta") }}
+        </div>
         {% else %}
-        <li class="breadcrumb-item">
+        <div class="breadcrumb-item">
             {{ breadcrumb.getIcon()|raw }}
             <a href="{{ (breadcrumb.getUrl()) ? breadcrumb.getUrl():'javascript:;' }}"><strong>{{ breadcrumb.getLabel() }}</strong></a>
-        </li>
+        </div>
         {% endif %}
     {% endfor %}
-</ol>
+</div>

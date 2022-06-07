@@ -9,17 +9,38 @@
 {% endblock %}
 {% block content %}
     <form actions="" method="POST" enctype="multipart/form-data">
-        <label for="">Jenis Pengadaan</label>
+        {# <label for="">Jenis Pengadaan</label>
         <input type="text" name="jenis_pengadaan"> <br>
         <label for="">SUMBER DANA</label>
         <input type="text" name="sumber_dana"> <br>
         <label for="">Jenis Paket</label>
         <input type="text" name="jenis_paket"> <br>
         {# {{}} #}
-
-        
-
-        <button type="submit" name="proses">Hitung</button>
+        {# <h1>{{dataset}}</h1> #}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ 'No'|trans }}</th>
+                        <th>pokja</th>
+                        <th>jenis pengadaan</th>
+                        <th>sumber dana</th>
+                        <th>jenis kontrak</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in queryResult %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ i.Pokja }}</td>
+                        {# <td>{{ loop.index }}</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ loop.index }}</td> #}
+                    </tr>    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </form>
             
 {% endblock %}

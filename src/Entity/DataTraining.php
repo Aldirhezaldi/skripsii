@@ -37,6 +37,11 @@ class DataTraining
      */
     private $jenis_kontrak;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=pagu::class, inversedBy="dataTrainings")
+     */
+    private $pagu;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class DataTraining
     public function setJenisKontrak(?JenisKontrak $jenis_kontrak): self
     {
         $this->jenis_kontrak = $jenis_kontrak;
+
+        return $this;
+    }
+
+    public function getPagu(): ?pagu
+    {
+        return $this->pagu;
+    }
+
+    public function setPagu(?pagu $pagu): self
+    {
+        $this->pagu = $pagu;
 
         return $this;
     }

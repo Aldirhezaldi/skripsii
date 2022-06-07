@@ -2,11 +2,13 @@
 
 namespace App\Controller\Backend;
 
+use App\Repository\DataTrainingRepository;
 use App\Repository\PokjaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
 use Phpml\Classification\NaiveBayes;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Phpml\Dataset\CsvDataset;
 use Rubix\ML\Datasets\Labeled;
@@ -26,12 +28,9 @@ class PerhitunganController extends AbstractController
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(BreacrumbBuilder $builder, PokjaRepository $pokjaRepository): Response
+    public function index(Request $request, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository): Response
     {
         $builder->add('Perhitungan Klasifikasi');
-
-        // $dataset = Labeled::fromIterator(new CSV('dataset/40 data.csv', true))
-        //     ->apply(new NumericStringConverter());
         $pdo = new PDO('pgsql:user=postgres;dbname=backup', 'postgres', 'buildstrike');
 
         $query = $pdo->prepare('select pokja_id,
@@ -43,43 +42,20 @@ class PerhitunganController extends AbstractController
         count(case when sumber_dana_id = 2 then 1 end) as "APBN" ,
         count(case when sumber_dana_id = 3 then 1 end) as "BLUD" ,
         count(case when sumber_dana_id = 4 then 1 end) as "LAINNYA",
-        count(case when sumber_dana_id = 1 then 1 end) as "umum" ,
-        count(case when sumber_dana_id = 2 then 1 end) as "dikecualikan" 
-        -- another colors here
+        count(case when jenis_kontrak_id = 1 then 1 end) as "LUMSUM",
+        count(case when jenis_kontrak_id = 2 then 1 end) as "HARGA SATUAN",
+	    count(case when jenis_kontrak_id = 3 then 1 end) as "GABUNGAN LUMSUM DAN HARGA SATUAN",
+	    count(case when jenis_kontrak_id = 4 then 1 end) as "WAKTU PENUGASAN"
         from data_training
         group by id');
         $query->execute();
         $samples = $query->fetchAll(PDO::FETCH_NUM);
         $dataset = new Unlabeled($samples);
-        dump($dataset);exit();
-        // $pokja = $pokjaRepository->getAllPokja();
-        // dump($pokja);exit();
-
-
-        // if (isset($_POST['proses'])){
-
-        //     $dataset = new CsvDataset('./dataset/NON ENCODE.csv',true);
-
-        //     $samples = $dataset->getSamples();
-        //     $labels = $dataset->getTargets();
-
-        //     $dtesting[] = $_POST['jenis pengadaan'];
-        //     $dtesting[] = $_POST['SUMBER DANA'];
-        //     $dtesting[] = $_POST['JENIS PAKET'];
-
-        //     $class_hasil = "";
-
-        //     $classifier = new NaiveBayes();
-
-        //     $classifier->train($samples, $labels);
-        //     $class_hasil = $classifier->predict($dtesting);
-
-        //     return $this->json($class_hasil);
-        // }
+        // dump($dataset);exit();
+        
         return $this->render('backend/perhitungan/index.html.twig', [
             'kmj_user' => $this->getUser(),
-            // 'pokja' => $pokja
-            // 'class_hasil' => $class_hasil,
+            'queryResult' => $dataset,
             
 
         ]);

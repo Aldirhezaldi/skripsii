@@ -1,12 +1,11 @@
 {% extends '@BaseController/modal-layout.html.twig' %}
 
-{% block title %}{{ title|trans}} {{ 'data_training'|trans }}{% endblock %}
+{% block title %}{{ title|trans}} {{ 'nama_jenis_pengadaan'|trans }}{% endblock %}
 
 {% block content %}
     <p>Rp 100.000.000 - Rp 2.000.000.000 = A</p>
     <p>Rp 2.100.000.000 - Rp 5.000.000.000 = B</p>
     <p>Rp 5.100.000.000 - Rp 11.000.000.000 = C</p>
-    <hr><br>
     {{ form_widget(form) }}
         
 {% endblock %} 

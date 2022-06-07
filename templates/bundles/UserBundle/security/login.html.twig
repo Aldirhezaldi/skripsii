@@ -6,18 +6,12 @@
 
 {% block body %}
    <div class="media-login">
-      
-      {# <div class="d-flex align-items-center pt-4 px-3 pb-3" style="background-color: #3c8dbc;">
-         <img src="{{ asset('assets/logo_pti.png') }}" width="90" alt="img" />
-         <h2 class="mb-0 text-white">E-Office</h2>
-      </div> #}
       <img src="{{ asset('assets/eoffice_login.png')}}" class="img-fluid img-target" width="800" alt="img" />
    </div>
    <div class="content-login">
       <div class="content-inner-login">
          <div class="card-login">
             <div class="card-login__header">
-               {# <h5 class="mb-1">Welcome back!!</h5> #}
                <h3 class="mb-0" style="color: #3c4858;">Silahkan Login di Aplikasi Klasifikasi Pemilihan Kelompok Kerja (Pokja)</h3>
                <div class="line-divider"></div>
             </div>
@@ -39,7 +33,7 @@
                </div>
                <button type="submit" class="btn btn-primary w-100">{{ 'login'|trans }} <i class="bi-arrow-right"></i></button>
             {{ form_end(form) }}
-            
+            <p class="text-center">Registrasi Akun <a href="{{ path('app_registration_regis') }}" >Registrasi</a></p> 
          </div>
       </div>
    </div>

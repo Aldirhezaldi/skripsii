@@ -1,0 +1,62 @@
+{% extends '@ElegantBootstrapTemplate/page_layout.html.twig' %}
+
+{% block title %}
+    <title>{{'Pagu'|trans}}</title>
+{% endblock %}
+
+{% block actions %}
+    <div class="pull-right">
+        <a class="btn btn-sm btn-outline-success" href="{{ path('app_pagu_create') }}" data-toggle="modal" data-target="#modal">
+        <span class="fa fa-plus"></span> {{ 'create'|trans }}</a>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>{{ 'No'|trans }}</th>
+                    <th>{{ 'range_pagu'|trans}}</th>
+                    <th>{{ 'pagu'|trans }}</th>
+                    <th>{{ 'actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ include('pagu/_filters.html.twig', {filter: filter}) }} 
+                    {% for pagu in pagus %}
+                <tr>
+                    <td>{{ loop.index}}</td>
+                    <td>{{ pagu.rangePagu}}</td>
+                    <td>{{ pagu.pagu }}</td>
+                    <td>
+                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_pagu_show', {'id': pagu.id}) }}">
+                            <span class="fa fa-desktop"></span> {{ 'show'|trans }}
+                        </a>
+                        <a class="btn btn-xs btn-outline-info" href="{{ path('app_pagu_edit', {'id': pagu.id}) }}">
+                            <span class="fa fa-edit"></span> {{ 'edit'|trans }}
+                        </a>
+                            {{ include('pagu/_delete_form.html.twig', {pagu: pagu}) }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="1">{{ 'no_records_found'|trans }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-2">
+        {{ include('pagu/_max_per_page.html.twig', {url: 'app_pagu_index'}) }}
+    </div>
+    <div class="pull-right">
+        <style>
+            .pagination {
+                margin : 0px;
+            }
+        </style>
+        <div class="pagerfanta pull-right">
+            {{ knp_pagination_render(pagus) }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pagu{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'show'|trans}} Pagu</h1>
+
+    <table class="table table-bordered table-hover">
+        <tbody>
+                        <tr>
+                <th width="30%">Id</th>
+                <td>{{ pagu.id }}</td>
+            </tr>
+                        <tr>
+                <th width="30%">Pagu</th>
+                <td>{{ pagu.pagu }}</td>
+            </tr>
+                    </tbody>
+    </table>
+
+    <a class="btn btn-sm btn-outline-primary" href="{{ path('app_pagu_index') }}" ><span class="fa fa-list"></span> {{ 'back'|trans }}</a>
+
+    <a class="btn btn-sm btn-outline-info" href="{{ path('app_pagu_edit', {'id': pagu.id}) }}"><span class="fa fa-edit"></span> {{ 'edit'|trans }}</a>
+
+{% endblock %}

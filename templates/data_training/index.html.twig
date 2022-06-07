@@ -20,6 +20,7 @@
                     <th>{{ 'jenis_pengadaan'|trans }}</th>
                     <th>{{ 'sumber_dana'|trans }}</th>
                     <th>{{ 'jenis_kontrak'|trans }}</th>
+                    <th>{{ 'pagu'|trans}}</th>
                     <th>{{ 'actions'|trans }}</th>
                     {# <th>{{'dataset'|trans }}</th> #}
                 </tr>
@@ -33,6 +34,7 @@
                     <td>{{ data_training.JenisPengadaan }}</td>
                     <td>{{ data_training.SumberDana }}</td>
                     <td>{{ data_training.JenisKontrak }}</td>
+                    <td>{{ data_training.Pagu}}</td>
                     <td>
                         <a class="btn btn-xs btn-outline-primary" href="{{ path('app_data_training_show', {'id': data_training.id}) }}" data-toggle="modal" data-target="#modal">
                             <span class="fa fa-desktop"></span> {{ 'show'|trans }}
