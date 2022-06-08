@@ -36,6 +36,14 @@
             </ul>
             <ul class="sidebar-body-menu">
                 <li>
+                    <a class="show-cat-btn" href="{{ path('app_data_training_index') }}">
+                        <span class="icon document" aria-hidden="true"></span>{{ 'dt_training'|trans }}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="sidebar-body-menu">
+                <li>
                     <a class="show-cat-btn" href="##">
                         <span class="icon document" aria-hidden="true"></span>{{ 'master'|trans }}
                             <span class="category__btn transparent-btn" title="Open list">
@@ -50,7 +58,6 @@
                            <a href="{{ path('app_jenis_pengadaan_index')}}">{{'jns_pengadaan'|trans }}</a>
                            <a href="{{ path('app_jenis_kontrak_index')}}">{{'jns_kont'|trans }}</a>
                            <a href="{{ path('app_pagu_index')}}">{{'pagu'|trans }}</a>
-                           <a href="{{ path('app_data_training_index') }}">{{ 'dt_training'|trans }}</a>
                        </li>
                     </ul>
                 </li>

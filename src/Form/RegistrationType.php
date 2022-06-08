@@ -45,15 +45,15 @@ class RegistrationType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, [
-                'label' => 'username :',
+                'label' => 'Username :',
                 'attr' => array(
-                    'placeholder' => 'Username'
+                    'placeholder' => 'Masukkan username...'
                 )
             ])
             ->add('password', PasswordType::class, [
-                'label' => 'password :',
+                'label' => 'Password :',
                 'attr' => array(
-                    'placeholder' => 'Password'
+                    'placeholder' => 'Masukkan password...'
                 )
             ]);
         
