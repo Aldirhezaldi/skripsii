@@ -48,7 +48,7 @@ class PokjaRepository extends ServiceEntityRepository
     public function getAllPokja()
     {
         $qb = $this->createQueryBuilder('p')
-                ->select("p.nama_pokja");
+                ->select('p.nama_pokja');
             return $qb->getQuery()->getResult();
 
     }

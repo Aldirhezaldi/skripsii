@@ -12,6 +12,7 @@ framework:
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
 
+    
     #esi: true
     #fragments: true
     php_errors:
@@ -22,3 +23,5 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+    templating:
+        engines: ['twig', 'php']

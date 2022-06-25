@@ -45,27 +45,76 @@ class DataTrainingRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
-    public function oneHotEncodeByName()
+    
+    public function probClass($class)
     {
-        // $qb = $this->createQueryBuilder('d')
-        //     ->select('d.id, count(CASE WHEN j.id = 1 THEN 1 END) as BARANG,
-        //         count(CASE WHEN j.id = 2 THEN 1 END) as KONSTRUKSI,
-        //         count(CASE WHEN j.id = 3 THEN 1 END) as KONSULTASI,
-        //         count(CASE WHEN j.id = 1 THEN 1 END) as JASA_LAINNYA,
-        //         count(CASE WHEN s.id = 1 THEN 1 END) as APBD,
-        //         count(CASE WHEN s.id = 2 THEN 1 END) as APBN, 
-        //         count(CASE WHEN s.id = 3 THEN 1 END) as BLUD,
-        //         count(CASE WHEN s.id = 4 THEN 1 END) as LAINNYA,
-        //         count(CASE WHEN P.id = 1 THEN 1 END) as umum,
-        //         count(CASE WHEN p.id = 2 THEN 1 END) as dikecualikan')
-        //     ->join('d.jenis_pengadaan', 'j')
-        //     ->join('d.jenis_paket', 'p')
-        //     ->join('d.sumber_dana', 's')
-        //     ->groupBy('d.id');
-        // return $qb->getQuery()->getResult();
-        // return $qb->getQuery()->getResult();
+        $qb = $this->createQueryBuilder('d')
+                    ->select('count(d.pokja) as kelas')
+                    ->where('d.pokja = '.$class);
+        return $qb->getQuery()->getResult()[0];
+    }
 
+    public function countById()
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('count(d) as total');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function sumByClass()
+    {
+        $num=[1,2,3,4];
+        foreach ($num as $value) {
+            $qb = $this->createQueryBuilder('d')
+                   ->select('count(d.pokja) as jumlah')
+                   ->where('d.pokja = '.$value);
+                   $jumlahKelas[$value]=$qb->getQuery()->getResult()[0];
+        }
+        return $jumlahKelas;
+    }
+
+    public function getProbClass()
+    {
+        $sumClass = $this->sumByClass();
+        $countClass = $this->countById();
+
+        $num=[1,2,3,4];
+        foreach ($num as $value) {
+            $jumlahProbClass[$value] = $sumClass[$value]['jumlah'] / $countClass[0]['total'];
+        }
+        return $jumlahProbClass;
+    }
+
+    public function getConditionProb($parameter, $nilai)
+    {
+        $jumlahDataKelas = $this->sumByClass();
+        $num=[1,2,3,4];
+        foreach ($num as $value) {
+            $qb = $this->createQueryBuilder('d')
+                   ->select('count('.$parameter.')')
+                   ->where($parameter = $nilai .'and d.pokja ='.$value);
+                   $conditionProb[$value] =  $qb->getQuery()->getResult()[0] / $jumlahDataKelas[$value];
+        }
+        return $conditionProb;
+    }
+
+    public function getClassProb($data)
+    {
+        $num=[1,2,3,4];
+        $attribut['jenis_pengadaan'] = $this->getConditionProb('jenis_pengadaan', $data['jenis_pengadaan']);
+        $attribut['sumber_dana'] = $this->getConditionProb('sumber_dana', $data['sumber_dana']);
+        $attribut['jenis_kontrak'] = $this->getConditionProb('jenis_kontrak', $data['jenis_kontrak']);
+        $attribut['pagu'] = $this->getConditionProb('pagu', $data['pagu']);
+
+        foreach ($num as $value) {
+            $prob[$value] = $attribut['jenis_pengadaan'][$value] * $attribut['sumber_dana'][$value] *
+            $attribut['jenis_kontrak'][$value] * $attribut['pagu'][$value] * $this->getProbClass()[$value];
+        }
+        if ($prob[1] > $prob[2]) {
+            return 'Pokja pemilihan 212';
+        } else if($prob[1] < $prob[2]){
+            return 'Pokja Pemiligan 214';
+        } 
     }
 
     // /**

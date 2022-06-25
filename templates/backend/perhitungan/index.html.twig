@@ -3,44 +3,73 @@
 {% block title %}
     <title>{{'Perhitungan'|trans}}</title>
 {% endblock %}
+{% block content %}
+    
+        <div class="table-responsive">
+
+        <h4>PROBABILITAS KELAS POKJA</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+                <tr>
+                    <th>No</th>
+                    <th scope="col" rowspan="4" class="align-middle text-center">KELAS POKJA</th>
+                    <th scope="col" rowspan="2" class="text-center">Jumlah Kelas</th>
+                    <th scope="col" rowspan="2" class="text-center">Probabilitas</th>
+                </tr>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+                {% set numClass = ['Pokja Pemilihan 212','Pokja Pemilihan 214','Pokja Pemilihan 215','Pokja Pemilihan 216'] %}
+                {% for dataClass in dataClass %}
+                {% for sumClass in sumClass %}
+                {% endfor %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td>{{numClass[loop.index0]}}</td>
+                    <td>{{dataClass.kelas}}</td>
+                    <td>{{ dump(sumClass)}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+<br>
+        <h4>PROBABILITAS PARAMETER</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+                <tr>
+                    <th>No</th>
+                    <th scope="col" rowspan="4" class="align-middle text-center">PARAMETER</th>
+                    <th scope="col" rowspan="2" class="text-center">Jumlah Kejadian</th>
+                    <th scope="col" rowspan="2" class="text-center">Probabilitas</th>
+                </tr>
+                <tr>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+        
+        {{ form_widget(form)}}
+            
+        </div>
+            <h1>Hasil = </h1>
+{% endblock %}
+{% block form_start %}
+    {{ form_start(form) }}
+{% endblock %}
+
+{% block form_end %}
+    {{ form_end(form) }}
+{% endblock %}
 
 {% block actions %}
-    
-{% endblock %}
-{% block content %}
-    <form actions="" method="POST" enctype="multipart/form-data">
-        {# <label for="">Jenis Pengadaan</label>
-        <input type="text" name="jenis_pengadaan"> <br>
-        <label for="">SUMBER DANA</label>
-        <input type="text" name="sumber_dana"> <br>
-        <label for="">Jenis Paket</label>
-        <input type="text" name="jenis_paket"> <br>
-        {# {{}} #}
-        {# <h1>{{dataset}}</h1> #}
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>{{ 'No'|trans }}</th>
-                        <th>pokja</th>
-                        <th>jenis pengadaan</th>
-                        <th>sumber dana</th>
-                        <th>jenis kontrak</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for i in queryResult %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ i.Pokja }}</td>
-                        {# <td>{{ loop.index }}</td>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ loop.index }}</td> #}
-                    </tr>    
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </form>
-            
+    <button type="submit" class="btn btn-sm btn-outline-success">
+        <span class="fa fa-save"></span>
+        {{'Submit'|trans}}
+    </button>
 {% endblock %}

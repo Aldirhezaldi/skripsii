@@ -49,3 +49,6 @@ jns_kont: JENIS KONTRAK
 jenis_kontrak: Jenis Kontrak
 pagu: PAGU
 data_training: Data Training
+dt_testing: DATA TESTING
+dt_pagu: Pagu
+range_pagu: Range Pagu

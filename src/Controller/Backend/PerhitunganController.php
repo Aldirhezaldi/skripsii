@@ -3,7 +3,10 @@
 namespace App\Controller\Backend;
 
 use App\Repository\DataTrainingRepository;
+use App\Entity\DataTraining;
+use App\Form\DataTestingType;
 use App\Repository\PokjaRepository;
+use Kematjaya\BaseControllerBundle\Controller\BaseController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
@@ -17,47 +20,56 @@ use Rubix\ML\Transformers\NumericStringConverter;
 use Rubix\ML\Extractors\SQLTable;
 use Rubix\ML\Extractors\ColumnPicker;
 use Rubix\ML\Datasets\Unlabeled;
-use PDO;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
  * @Route("/backend/perhitungan", name="app_backend_perhitungan_")
  */
 
-class PerhitunganController extends AbstractController
+class PerhitunganController extends BaseController
 {
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(Request $request, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository): Response
+    public function index(Request $request, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository, PokjaRepository $pokjaRepository): Response
     {
+        $dataTesting =  new DataTraining();
         $builder->add('Perhitungan Klasifikasi');
-        $pdo = new PDO('pgsql:user=postgres;dbname=backup', 'postgres', 'buildstrike');
+        $sumClass = $dataTrainingRepository->getProbClass();
+        $getClassPokja = $pokjaRepository->getAllPokja();
+        $kelas=[212,214,215,216];
+        $num=[1,2,3,4];
+        foreach ($num as $value) {
+            $dataClass[$value]= $dataTrainingRepository->probClass($value);
+        }
+        // dump($getClassPokja);exit;
 
-        $query = $pdo->prepare('select pokja_id,
-        count(case when jenis_pengadaan_id = 1 then 1 end) as "BARANG" ,
-        count(case when jenis_pengadaan_id = 2 then 1 end) as "KONSTRUKSI" ,
-        count(case when jenis_pengadaan_id = 3 then 1 end) as "KONSULTASI" ,
-        count(case when jenis_pengadaan_id = 4 then 1 end) as "JASA_LAINNYA",
-        count(case when sumber_dana_id = 1 then 1 end) as "APBD" ,
-        count(case when sumber_dana_id = 2 then 1 end) as "APBN" ,
-        count(case when sumber_dana_id = 3 then 1 end) as "BLUD" ,
-        count(case when sumber_dana_id = 4 then 1 end) as "LAINNYA",
-        count(case when jenis_kontrak_id = 1 then 1 end) as "LUMSUM",
-        count(case when jenis_kontrak_id = 2 then 1 end) as "HARGA SATUAN",
-	    count(case when jenis_kontrak_id = 3 then 1 end) as "GABUNGAN LUMSUM DAN HARGA SATUAN",
-	    count(case when jenis_kontrak_id = 4 then 1 end) as "WAKTU PENUGASAN"
-        from data_training
-        group by id');
-        $query->execute();
-        $samples = $query->fetchAll(PDO::FETCH_NUM);
-        $dataset = new Unlabeled($samples);
-        // dump($dataset);exit();
-        
+        $form = $this->createForm(DataTestingType::class, $dataTesting);
+            $result = parent::processForm($request, $form);
+            if ($result['process']) {
+                return $this->json($result);
+            }
+
         return $this->render('backend/perhitungan/index.html.twig', [
             'kmj_user' => $this->getUser(),
-            'queryResult' => $dataset,
-            
-
+            'data_testing' => $dataTesting,
+            'form' => $form->createView(),
+            'dataClass' => $dataClass,
+            'kelas' => $kelas,
+            'sumClass' => $sumClass,
+            'getClassPokja' => $getClassPokja,
+            // 'data' => $qb
         ]);
+    }
+    
+
+    public function getProboClass(DataTrainingRepository $dataTrainingRepository)
+    {
+        $num=[1,2,3,4];    
+        $sumClass = $dataTrainingRepository->sumByClass();
+        $getClass = $dataTrainingRepository->countById();
+        foreach ($num as $values) {
+            $jumlahProbClass[$values] = $sumClass[$values]['jumlah'] / $getClass[0]['total'];
+        }
     }
 }

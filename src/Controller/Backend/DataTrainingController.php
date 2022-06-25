@@ -30,32 +30,12 @@ class DataTrainingController extends BaseController
         $builder->add('Master');
         $builder->add('Data Training');
 
-        // $datatraining = $dataTrainingRepository->oneHotEncodeByName();
-        // dump($datatraining);exit();
-
-        // $em = $this->getDoctrine()->getManager();
-        // $data = $em->getRepository(DataTraining::class)->findAll();
-
-        // $query = $em->createQuery(
-        //     'SELECT
-        //         p.id,
-        //         j.id,
-        //         j.nama_pokja
-        //     FROM
-        //         App\Entity\DataTraining p
-        //     LEFT JOIN App\Entity\Pokja j WITH p.pokja_id = j.id'
-        // );
-        // $result = $query->execute();
-        // dump($result);exit;
-        // $get = $dataTrainingRepository->oneHotEncodeByName();
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
         return $this->render('data_training/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView(),
-            // 'data' =>$data
-            // 'get' => $get
         ]);
     }
 

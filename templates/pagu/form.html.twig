@@ -1,11 +1,18 @@
 {% extends '@BaseController/modal-layout.html.twig' %}
 
-{% block title %}{{ title|trans}} {{ 'nama_jenis_pengadaan'|trans }}{% endblock %}
+{% block title %}{{ title|trans}} {{ 'dt_pagu'|trans }}{% endblock %}
 
 {% block content %}
+
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Range Pagu !!!</h4>
+  <hr>
     <p>Rp 100.000.000 - Rp 2.000.000.000 = A</p>
     <p>Rp 2.100.000.000 - Rp 5.000.000.000 = B</p>
     <p>Rp 5.100.000.000 - Rp 11.000.000.000 = C</p>
+  <hr>
+</div>
+    
     {{ form_widget(form) }}
         
 {% endblock %} 
