@@ -35,16 +35,16 @@ class PerhitunganController extends BaseController
     {
         $dataTesting =  new DataTraining();
         $builder->add('Perhitungan Klasifikasi');
-        $sumClass = $dataTrainingRepository->getProbClass();
-        $getClassPokja = $pokjaRepository->getAllPokja();
+        $param = $dataTrainingRepository->getParameterData('nama_jenis_pengadaan', 'jenis_pengadaan');
         $classParam = $dataTrainingRepository->getClassParam();
+        $pokja = $dataTrainingRepository;
         $class = $dataTrainingRepository->getNameClass('range_pagu','pagu');
         $kelas=[212,214,215,216];
         $num=[1,2,3,4];
         foreach ($num as $value) {
             $dataClass[$value]= $dataTrainingRepository->probClass($value);
         }
-        // dump($classParam);exit;
+        // dump($pokja);exit;
 
         $form = $this->createForm(DataTestingType::class, $dataTesting);
             $result = parent::processForm($request, $form);
@@ -55,13 +55,13 @@ class PerhitunganController extends BaseController
         return $this->render('backend/perhitungan/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'data_testing' => $dataTesting,
+            'pokja' => $pokja,
+            'param' => $param,
             'classParam' => $classParam,
             'class' => $class,
             'form' => $form->createView(),
             'dataClass' => $dataClass,
             'kelas' => $kelas,
-            'sumClass' => $sumClass,
-            'getClassPokja' => $getClassPokja,
             // 'data' => $qb
         ]);
     }

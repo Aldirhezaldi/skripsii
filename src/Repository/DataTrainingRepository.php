@@ -58,7 +58,7 @@ class DataTrainingRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('d')
                     ->select('count(d) as total');
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getResult()[0];
     }
 
     public function sumByClass()
@@ -94,6 +94,34 @@ class DataTrainingRepository extends ServiceEntityRepository
                    ->orderBy('p.nama_pokja', 'ASC');
                    
             return $qb->getQuery()->getResult();
+    }
+
+    public function getParameterData($nama, $class)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('distinct (p.'.$nama.') as parameter')
+                    ->leftJoin('d.'.$class, 'p')
+                    ->orderBy('p.'.$nama, 'ASC');
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getPokja($kelas)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('count(p.nama_pokja) as kelas')
+                    ->leftJoin('d.pokja', 'p')
+                    ->where('p.nama_pokja = :pokja')
+                    ->setParameter('pokja', $kelas);
+                    return $qb->getQuery()->getResult()[0]; 
+    }
+
+    public function getC($select, $join)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('distinct (p.'.$select.') as parameter')
+                    ->leftJoin('d.'.$join , 'p')
+                    ->orderBy('p.'.$select, 'ASC');
+        return $qb->getQuery()->getResult()[0];
     }
 
     public function getLeftJoin()

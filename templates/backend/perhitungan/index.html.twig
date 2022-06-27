@@ -4,7 +4,7 @@
     <title>{{'Perhitungan'|trans}}</title>
 {% endblock %}
 {% block content %}
-    {% set parameterClass = ['jenis_pengadaan', 'sumber_dana', 'jenis_kontrak', 'pagu'] %}
+    {% set parameterClass = ["jenis_pengadaan", "sumber_dana", "jenis_kontrak", "pagu"] %}
         <div class="table-responsive">
 
         <h4>PROBABILITAS KELAS POKJA</h4>
@@ -12,41 +12,62 @@
         <table border="5" class="table table-hover">
             <thead class="bg-secondary text-white">
                 <tr>
-                    <th>No</th>
-                    <th scope="col" rowspan="4" class="align-middle text-center">KELAS POKJA</th>
-                    <th scope="col" rowspan="2" class="text-center">Jumlah Kelas</th>
-                    <th scope="col" rowspan="2" class="text-center">Probabilitas</th>
-                </tr>
-                <tr>
-                </tr>
+            <th rowspan="2" class="align-middle text-center">KELAS</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
             </thead>
             <tbody>
-                {% for classParam in classParam %}
                 <tr>
-                    <td>{{loop.index}}</td>
-                    <td>{{ classParam.Kelas}}</td>
+                    <td>PROBABILITAS KELAS</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 212").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 214").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 215").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 216").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    {# <td>{{ classParam.Kelas}}</td>
                     <td>{{ classParam.Jumlah}}</td>
-                    <td>{{ classParam.Probabilitas}}</td>
+                    <td>{{ classParam.Probabilitas}}</td> #}
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
+        
         <br>
         {% set parameter = ['jenis_pengadaan', 'sumber_dana', 'jenis_kontrak', 'pagu'] %}
         
-        {% for parameter in parameter %}
-        <h4>PROBABILITAS PARAMETER {{parameter}}</h4>
+        {% for parameterClass in parameterClass %}
+        <h4>PROBABILITAS PARAMETER {{ parameterClass |upper}}</h4>
         <br>
         <table border="5" class="table table-hover">
             <thead class="bg-secondary text-white">
-                <tr>
-                    <th>No</th>
-                    <th scope="col" rowspan="4" class="align-middle text-center">{{parameter}}</th>
-                    <th scope="col" rowspan="2" class="text-center">Jumlah Kejadian</th>
-                    <th scope="col" rowspan="2" class="text-center">Probabilitas {{parameter}}</th>
-                </tr>
-                <tr>
-                </tr>
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS {{ parameterClass |upper}}</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
             </thead>
             <tbody>
                 <tr>
