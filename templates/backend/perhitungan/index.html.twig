@@ -4,7 +4,7 @@
     <title>{{'Perhitungan'|trans}}</title>
 {% endblock %}
 {% block content %}
-    
+    {% set parameterClass = ['jenis_pengadaan', 'sumber_dana', 'jenis_kontrak', 'pagu'] %}
         <div class="table-responsive">
 
         <h4>PROBABILITAS KELAS POKJA</h4>
@@ -21,29 +21,29 @@
                 </tr>
             </thead>
             <tbody>
-                {% set numClass = ['Pokja Pemilihan 212','Pokja Pemilihan 214','Pokja Pemilihan 215','Pokja Pemilihan 216'] %}
-                {% for dataClass in dataClass %}
-                {% for sumClass in sumClass %}
-                {% endfor %}
+                {% for classParam in classParam %}
                 <tr>
                     <td>{{loop.index}}</td>
-                    <td>{{numClass[loop.index0]}}</td>
-                    <td>{{dataClass.kelas}}</td>
-                    <td>{{ dump(sumClass)}}</td>
+                    <td>{{ classParam.Kelas}}</td>
+                    <td>{{ classParam.Jumlah}}</td>
+                    <td>{{ classParam.Probabilitas}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-<br>
-        <h4>PROBABILITAS PARAMETER</h4>
+        <br>
+        {% set parameter = ['jenis_pengadaan', 'sumber_dana', 'jenis_kontrak', 'pagu'] %}
+        
+        {% for parameter in parameter %}
+        <h4>PROBABILITAS PARAMETER {{parameter}}</h4>
         <br>
         <table border="5" class="table table-hover">
             <thead class="bg-secondary text-white">
                 <tr>
                     <th>No</th>
-                    <th scope="col" rowspan="4" class="align-middle text-center">PARAMETER</th>
+                    <th scope="col" rowspan="4" class="align-middle text-center">{{parameter}}</th>
                     <th scope="col" rowspan="2" class="text-center">Jumlah Kejadian</th>
-                    <th scope="col" rowspan="2" class="text-center">Probabilitas</th>
+                    <th scope="col" rowspan="2" class="text-center">Probabilitas {{parameter}}</th>
                 </tr>
                 <tr>
                 </tr>
@@ -53,7 +53,7 @@
                 </tr>
             </tbody>
         </table>
-        
+        {% endfor %}
         {{ form_widget(form)}}
             
         </div>

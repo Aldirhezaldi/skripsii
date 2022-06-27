@@ -85,6 +85,45 @@ class DataTrainingRepository extends ServiceEntityRepository
         return $jumlahProbClass;
     }
 
+    public function getClassParam()
+    {
+            $qb = $this->createQueryBuilder('d')
+                   ->select('distinct (p.nama_pokja) as Kelas, count(d) as Jumlah, count(d)/104.0 as Probabilitas')
+                   ->leftJoin('d.pokja', 'p')
+                   ->groupBy('p.nama_pokja')
+                   ->orderBy('p.nama_pokja', 'ASC');
+                   
+            return $qb->getQuery()->getResult();
+    }
+
+    public function getLeftJoin()
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('p.nama_pokja, j.nama_jenis_pengadaan, s.nama_sumber_dana, k.nama_jenis_kontrak, pg.range_pagu')
+                    ->leftJoin('d.pokja', 'p')
+                    ->leftJoin('d.jenis_pengadaan', 'j')
+                    ->leftJoin('d.sumber_dana', 's')
+                    ->leftJoin('d.jenis_kontrak', 'k')
+                    ->leftJoin('d.pagu', 'pg')
+                    ->orderBy('p.nama_pokja', 'ASC');
+                    return $qb->getQuery()->getResult();
+    }
+
+    public function getNameClass($nama, $parameter)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('distinct p.'.$nama)
+                    ->leftJoin('d.'.$parameter, 'p')
+                    ->orderBy('p.'.$nama, 'ASC');
+        return $qb->getQuery()->getResult();
+    }
+    public function getJP($c)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('distinct (d.'.$c.') as kelas');
+        return $qb->getQuery()->getResult();
+    }
+
     public function getConditionProb($parameter, $nilai)
     {
         $jumlahDataKelas = $this->sumByClass();
