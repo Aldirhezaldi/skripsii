@@ -120,21 +120,38 @@ class DataTrainingRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('d')
                     ->select('distinct (p.'.$select.') as parameter')
                     ->leftJoin('d.'.$join , 'p')
-                    ->orderBy('p.'.$select, 'ASC');
-        return $qb->getQuery()->getResult()[0];
+                    ->leftJoin('d.pokja', 'j')
+                    ->orderBy('p.'.$select, 'ASC')
+                    ->groupBy('p.'.$select);
+        return $qb->getQuery()->getResult();
     }
 
+    public function getHitung($select, $join, $kelas, $isi)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('count(p.'.$select.') as data')
+                    ->leftJoin('d.'.$join , 'p')
+                    ->leftJoin('d.pokja', 'j')
+                    ->orderBy('p.'.$select, 'ASC')
+                    ->groupBy('p.'.$select)
+                    ->where('j.nama_pokja = :pokja')
+                    ->andWhere('p.'.$select.'= :select')
+                    ->setParameter('select', $isi)
+                    ->setParameter('pokja', $kelas);
+        return $qb->getQuery()->getResult()[0];
+    }
     public function getLeftJoin()
     {
         $qb = $this->createQueryBuilder('d')
-                    ->select('p.nama_pokja, j.nama_jenis_pengadaan, s.nama_sumber_dana, k.nama_jenis_kontrak, pg.range_pagu')
+                    ->select('d.id, p.nama_pokja, j.nama_jenis_pengadaan, s.nama_sumber_dana, k.nama_jenis_kontrak, pg.range_pagu')
                     ->leftJoin('d.pokja', 'p')
                     ->leftJoin('d.jenis_pengadaan', 'j')
                     ->leftJoin('d.sumber_dana', 's')
                     ->leftJoin('d.jenis_kontrak', 'k')
                     ->leftJoin('d.pagu', 'pg')
-                    ->orderBy('p.nama_pokja', 'ASC');
-                    return $qb->getQuery()->getResult();
+                    ->orderBy('p.nama_pokja', 'ASC')
+                    ->where('d.id > 104');
+                    return $qb->getQuery()->getResult()[0];
     }
 
     public function getNameClass($nama, $parameter)
