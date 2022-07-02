@@ -151,7 +151,40 @@ class DataTrainingRepository extends ServiceEntityRepository
                     ->leftJoin('d.pagu', 'pg')
                     ->orderBy('p.nama_pokja', 'ASC')
                     ->where('d.id > 104');
-                    return $qb->getQuery()->getResult()[0];
+                    return $qb->getQuery()->getResult();
+    }
+
+    public function getLeftJoin2()
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('d.id, p.nama_pokja, j.nama_jenis_pengadaan, s.nama_sumber_dana, k.nama_jenis_kontrak, pg.range_pagu')
+                    ->leftJoin('d.pokja', 'p')
+                    ->leftJoin('d.jenis_pengadaan', 'j')
+                    ->leftJoin('d.sumber_dana', 's')
+                    ->leftJoin('d.jenis_kontrak', 'k')
+                    ->leftJoin('d.pagu', 'pg')
+                    ->orderBy('p.nama_pokja', 'ASC')
+                    ->where('d.id > 104')
+                    ->andWhere('j.nama_jenis_pengadaan = :test')
+                    ->setParameter('test', 'BARANG');
+                    return $qb->getQuery()->getResult();
+    }
+
+    public function getAll()
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('j.nama_jenis_pengadaan')
+                    ->leftJoin('d.jenis_pengadaan', 'j');
+                    return $qb->getQuery()->getResult();
+    }
+    
+    public function getCount($count, $nilai, $pokja)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('count(d.'.$count.')')
+                    ->where('d.'.$count.'='.$nilai)
+                    ->andWhere('d.pokja_id = '.$pokja);
+                    return $qb->getQuery()->getResult();
     }
 
     public function getNameClass($nama, $parameter)

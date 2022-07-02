@@ -1,0 +1,176 @@
+{% extends "@ElegantBootstrapTemplate/base.html.twig" %}
+{% block title %}
+    <title>{{ 'post'|trans }}</title>
+{% endblock %}
+{% block body %}
+    <h4>DATA KASUS TERBARU</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+                <tr>
+            <th class="align-middle text-center">NAMA POKJA</th>
+            <th class="align-middle text-center">JENIS PENGADAAN</th>
+            <th class="align-middle text-center">SUMBER DANA</th>
+            <th class="align-middle text-center">JENIS KONTRAK</th>
+            <th class="align-middle text-center">RANGE PAGU</th>
+        </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>?</td>
+                    <td>{{jp}}</td>
+                    <td>{{sd}}</td>
+                    <td>{{jk}}</td>
+                    <td>{{pg}}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+    <h4>PERHITUNGAN DATA KASUS TERBARU</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+                <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS DATA BARU</th>
+            <th colspan="4" class="align-middle text-center">JENIS PENGADAAN ({{ jp }})</th>
+            <th colspan="4" class="align-middle text-center">SUMBER DANA ({{ sd }})</th>
+            <th colspan="4" class="align-middle text-center">JENIS KONTRAK ({{ jk }})</th>
+            <th colspan="4" class="align-middle text-center">PAGU ({{ pg }})</th>
+            <th colspan="4" class="align-middle text-center">KELAS POKJA</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PROBABILITAS</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 212", jp).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 214", jp).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 215", jp).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 216", jp).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 212", sd).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 214", sd).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 215", sd).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 216", sd).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak", "POKJA PEMILIHAN 212", jk).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak", "POKJA PEMILIHAN 214", jk).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak", "POKJA PEMILIHAN 215", jk).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak", "POKJA PEMILIHAN 216", jk).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu", "POKJA PEMILIHAN 212", pg).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu", "POKJA PEMILIHAN 214", pg).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu", "POKJA PEMILIHAN 215", pg).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu", "POKJA PEMILIHAN 216", pg).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 212").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 214").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 215").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 216").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td> 
+                </tr>
+                {% set pokja212 = pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 212", jp).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas 
+                    * pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 212", sd).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas
+                    * pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 212",jk).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas
+                    * pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pg).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas
+                    * pokja.getPokja("POKJA PEMILIHAN 212").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas) %}
+                {% set pokja214 = pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 214", jp).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas
+                    * pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 214", sd).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas
+                    * pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 214", jk).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas
+                    * pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pg).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas
+                    * pokja.getPokja("POKJA PEMILIHAN 214").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas) %}
+                {% set pokja215 = pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 215", jp).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas
+                    * pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 215", sd).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas
+                    * pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 215", jk).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas
+                    * pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pg).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas
+                    * pokja.getPokja("POKJA PEMILIHAN 215").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas) %}
+                {% set pokja216 = pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 216", jp).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas
+                    * pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 216", sd).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas
+                    * pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 216", jk).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas
+                    * pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pg).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas
+                    * pokja.getPokja("POKJA PEMILIHAN 216").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas) %}
+                <tr>
+                    <td>POKJA PEMILIHAN 212</td>
+                    <td colspan="20">{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 212", jp).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas }}
+                    * {{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 212", sd).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas }}
+                    * {{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 212",jk).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas }}
+                    * {{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pg).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas }}
+                    * {{ pokja.getPokja("POKJA PEMILIHAN 212").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)  }}
+                    = <b>{{ pokja212 }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POKJA PEMILIHAN 214</td>
+                    <td colspan="20">{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 214", jp).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas }}
+                    * {{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 214", sd).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas }}
+                    * {{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 214",jk).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas }}
+                    * {{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pg).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas }}
+                    * {{ pokja.getPokja("POKJA PEMILIHAN 214").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)  }}
+                    = <b>{{ pokja214 }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POKJA PEMILIHAN 215</td>
+                    <td colspan="20">{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 215", jp).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas }}
+                    * {{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 215", sd).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas }}
+                    * {{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 215",jk).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas }}
+                    * {{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pg).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas }}
+                    * {{ pokja.getPokja("POKJA PEMILIHAN 215").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)  }}
+                    = <b>{{ pokja215 }}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POKJA PEMILIHAN 216</td>
+                    <td colspan="20">{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 216", jp).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas }}
+                    * {{ pokja.getHitung("nama_sumber_dana", "sumber_dana", "POKJA PEMILIHAN 216", sd).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas }}
+                    * {{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 216",jk).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas }}
+                    * {{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pg).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas }}
+                    * {{ pokja.getPokja("POKJA PEMILIHAN 216").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)  }}
+                    = <b>{{ pokja216 }}</b>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h4>KESIMPULAN DATA KASUS TERBARU </h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+                <tr>
+            <th class="align-middle text-center">NAMA POKJA</th>
+            <th class="align-middle text-center">JENIS PENGADAAN</th>
+            <th class="align-middle text-center">SUMBER DANA</th>
+            <th class="align-middle text-center">JENIS KONTRAK</th>
+            <th class="align-middle text-center">RANGE PAGU</th>
+        </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% if pokja212 > pokja214 or pokja214 > pokja215 %}
+                        <td>bismillah</td>
+                    {% endif %}
+                    
+                    <td>{{jp}}</td>
+                    <td>{{sd}}</td>
+                    <td>{{jk}}</td>
+                    <td>{{pg}}</td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}
