@@ -22,6 +22,7 @@ class DataTestingType extends AbstractType
     {
         $builder
             ->add('jenis_pengadaan', ChoiceType::class, [
+                'placeholder' => '',
                 'choices' => [
                     'BARANG' => 'BARANG',
                     'KONSTRUKSI' => 'KONSTRUKSI',
@@ -30,6 +31,7 @@ class DataTestingType extends AbstractType
                 ]
             ])
             ->add('sumber_dana', ChoiceType::class,  [
+                'placeholder' => '',
                 'choices' => [
                     'APBD' => 'APBD',
                     'APBN' => 'APBN',
@@ -38,6 +40,7 @@ class DataTestingType extends AbstractType
                 ]
             ])
             ->add('jenis_kontrak', ChoiceType::class, [
+                'placeholder' => '',
                 'choices' => [
                     'LUMSUM' => 'LUMSUM',
                     'HARGA SATUAN' => 'HARGA SATUAN',
@@ -46,6 +49,7 @@ class DataTestingType extends AbstractType
                 ]
             ])
             ->add('pagu', ChoiceType::class, [
+                'placeholder' => '',
                 'choices' => [
                     'A' => 'A',
                     'B' => 'B',
@@ -53,7 +57,7 @@ class DataTestingType extends AbstractType
                 ]
             ])
             ->add('save', SubmitType::class, [
-                'attr' => ['class' => 'save', 'id' => 'submit'],
+                'attr' => ['class' => 'btn btn-primary', 'id' => 'submit'],
             ])
         ;
         

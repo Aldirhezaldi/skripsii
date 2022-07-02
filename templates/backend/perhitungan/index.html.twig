@@ -4,15 +4,12 @@
     <title>{{'Perhitungan'|trans}}</title>
 {% endblock %}
 {% block content %}
+    <h1>Masukkan Data</h1>
+    <br>
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
-      </div>
-    </div>
-  </div>
-  
-</div>
-</div>
+    <hr>
   <div class="table-responsive">
         <h4>PROBABILITAS KELAS POKJA </h4>
         <br>
@@ -217,8 +214,7 @@
                 </tr>
             </tbody>
         </table>
-        
-
+    </div>
 {% endblock %}
 
 {% block actions %}

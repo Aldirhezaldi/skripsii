@@ -43,7 +43,6 @@ class PerhitunganController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            // var_dump($dataTesting);die;
             // $entityManagerInterface->persist($dataTesting);
             // $entityManagerInterface->flush();
             $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
@@ -67,18 +66,16 @@ class PerhitunganController extends BaseController
     /**
      * @Route("/post", name="post")
      */
-    public function formPost(Request $request, DataTrainingRepository $dataTrainingRepository): Response
+    public function formPost(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
     {
-        // $leftJoin = $dataTrainingRepository->getCount("jenis_pengadaan_id", 4, 1);
-        $leftJoin1 = $dataTrainingRepository->getAll();
+        $builder->add('Perhitungan Klasifikasi');
+        $builder->add('Hasil Klasifikasi');
         $pokja = $dataTrainingRepository;
         
         $jp = $request->request->get('jenis_pengadaan');
         $sd = $request->request->get('sumber_dana');
         $jk = $request->request->get('jenis_kontrak');
         $pg = $request->request->get('pagu');
-        // $coba = $dataTrainingRepository->getHitung("nama_jenis_pengadaan", "jenis_pengadaan", "POKJA PEMILIHAN 212", $jp);
-        // dump($coba);exit;
         return $this->render('backend/perhitungan/post.html.twig', [
             'jp' => $jp,
             'sd' => $sd,
@@ -95,7 +92,7 @@ class PerhitunganController extends BaseController
     public function data(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
     {
         $builder->add('Perhitungan Klasifikasi');
-        $builder->add('All Data');
+        $builder->add('Semua Data');
 
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
