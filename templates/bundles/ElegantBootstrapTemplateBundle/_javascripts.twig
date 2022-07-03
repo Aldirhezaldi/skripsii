@@ -17,4 +17,22 @@
     $(document).ready(function() {
         $('.select2').select2();
     });
+{#  #}
+{# document.body.addEventListener('click', function (e) {
+    if (e.target.parentNode.id === 'mySidebar') {
+      document.getElementById("mySidebar").style.display = "block";
+      e.preventDefault();
+      return;
+    }
+    document.getElementById("mySidebar").style.display = "none";
+  }, true); #}
+
+  function openNav() {
+      var x = document.getElementById("mySidebar");
+    if (x.style.display === "block") {
+		x.style.display = "none";
+	} else {
+		x.style.display ="block"
+	}
+  }
 </script>

@@ -114,7 +114,7 @@ class DataTrainingRepository extends ServiceEntityRepository
                     ->setParameter('pokja', $kelas);
                     return $qb->getQuery()->getResult()[0]; 
     }
-
+    
     public function getC($select, $join)
     {
         $qb = $this->createQueryBuilder('d')

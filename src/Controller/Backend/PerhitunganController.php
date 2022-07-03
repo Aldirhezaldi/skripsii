@@ -25,38 +25,28 @@ class PerhitunganController extends BaseController
     /**
      * @Route("/", name="index", methods={"GET", "POST"})
      */
-    public function index(Request $request, DataTestingType $dataTestingType, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository, PokjaRepository $pokjaRepository, EntityManagerInterface $entityManagerInterface): Response
+    public function index(Request $request, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository, EntityManagerInterface $entityManagerInterface): Response
     {
         $dataTesting =  new DataTesting();
         $builder->add('Perhitungan Klasifikasi');
 
-        // $newData = $dataTrainingRepository->getLeftJoin();
         $pokja = $dataTrainingRepository;
-        $leftJoin = $dataTrainingRepository->getLeftJoin();
-        $leftJoin2 = $dataTrainingRepository->getLeftJoin2();
-        $hai = $dataTestingType;
-
-        $form = $this->createForm(DataTestingType::class, $dataTesting, [
+        $form = $this->createForm(DataTestingType::class, $dataTesting,[
             'action' => $this->generateUrl('app_backend_perhitungan_post'),
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) 
         {
-            // $entityManagerInterface->persist($dataTesting);
-            // $entityManagerInterface->flush();
-            $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
-            return $this->redirectToRoute('app_backend_perhitungan_post',[
-                'app_backend_perhitungan_post' => $form->getData(),
-                'hasil' => parent::createPaginator($queryBuilder, $request),
-                'form' =>$form
-            ]);
+            // $dataTesting = $form->getData();
+            $entityManagerInterface->persist($dataTesting);
+            $entityManagerInterface->flush();
+            return $this->redirectToRoute('app_backend_perhitungan_post');
         }
         
         return $this->render('backend/perhitungan/index.html.twig', [
             'kmj_user' => $this->getUser(),
             'data_testing' => $dataTesting,
-            'leftJoin' => $leftJoin,
             'post' => $_POST,
             'pokja' => $pokja,
             'form' => $form->createView(),
@@ -101,38 +91,5 @@ class PerhitunganController extends BaseController
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView(),
         ]);
-    }
-
-    /**
-     * @Route("/create", name="create", methods={"GET", "POST"})
-     */
-    public function create(Request $request): Response
-    {
-        $dataTesting = new DataTraining();
-        
-        $form = $this->createForm(DataTestingType::class, $dataTesting, [
-            'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_backend_perhitungan_create')]
-            ]);
-        $result = parent::processFormAjax($request, $form);
-        if ($result['process']) {
-            return $this->json($result);
-        }
-                
-        return $this->render('data_training/form.html.twig', [
-            'data_testing' => $dataTesting,
-            'form' => $form->createView(), 
-            'title' => 'create',
-            'post' => $_POST
-        ]);
-    }
-
-    public function getProboClass(DataTrainingRepository $dataTrainingRepository)
-    {
-        $num=[1,2,3,4];    
-        $sumClass = $dataTrainingRepository->sumByClass();
-        $getClass = $dataTrainingRepository->countById();
-        foreach ($num as $values) {
-            $jumlahProbClass[$values] = $sumClass[$values]['jumlah'] / $getClass[0]['total'];
-        }
     }
 }
