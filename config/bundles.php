@@ -16,5 +16,7 @@ return [
     Kematjaya\BaseControllerBundle\BaseControllerBundle::class => ['all' => true],
     Kematjaya\CrudMakerBundle\CrudMakerBundle::class => ['all' => true],
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
-    Kematjaya\Breadcrumb\KmjBreadcrumbBundle::class => ['all' => true]
+    Kematjaya\Breadcrumb\KmjBreadcrumbBundle::class => ['all' => true],
+    Symfony\UX\Chartjs\ChartjsBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
