@@ -12,7 +12,8 @@ class DataTraining
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="data_training_id_seq")
      * @ORM\Column(type="integer")
      */
     private $id;

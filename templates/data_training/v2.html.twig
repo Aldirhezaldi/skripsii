@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block actions %}
+    <a class="btn btn-primary" href="{{ path('app_data_training_coba')}}" role="button">Link</a>
 {% endblock %}
-{% block body %}
+{% block content %}
+    <div class="container">
     <form action="{{ path('app_data_training_upload_excel') }}" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
@@ -19,7 +21,7 @@
         <button type="submit" class="btn btn-primary">Send</button>
 
   </form>
-  {% block content %}
+  </br>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
@@ -35,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                {# {{ include('data_training/_filters.html.twig', {filter: filter}) }}  #}
+                {{ include('data_training/_filterV2.html.twig', {filter: filter}) }} 
                     {% for dt_training in dt_training %}
                 <tr>
                     <td>{{ loop.index }}</td>
@@ -63,6 +65,7 @@
             </tbody>
         </table>
     </div>
+    </div>
     <div class="col-lg-2">
         {{ include('data_training/_max_per_page.html.twig', {url: 'app_data_training_index'}) }}
     </div>
@@ -76,5 +79,4 @@
             {{ knp_pagination_render(dt_training) }}
         </div>
     </div>
-    {% endblock %}
 {% endblock %}

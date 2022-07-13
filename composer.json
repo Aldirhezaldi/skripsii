@@ -22,6 +22,7 @@
         "symfony/flex": "^1.19",
         "symfony/framework-bundle": "5.4.*",
         "symfony/runtime": "5.4.*",
+        "symfony/serializer": "^5.4",
         "symfony/templating": "5.4.*",
         "symfony/translation": "5.4.*",
         "symfony/ux-chartjs": "^2.3",

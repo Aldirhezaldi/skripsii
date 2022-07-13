@@ -1,0 +1,225 @@
+{% extends "@ElegantBootstrapTemplate/page_layout.html.twig" %}
+
+{% block title %}
+    <title>{{'Perhitungan'|trans}}</title>
+{% endblock %}
+{% block content %}
+    <h1>Masukkan Data</h1>
+    <br>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    <hr>
+  {# <div class="table-responsive">
+        <h4>PROBABILITAS KELAS POKJA </h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>PROBABILITAS KELAS</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 212").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 214").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 215").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                    <td>{{ pokja.getPokja("POKJA PEMILIHAN 216").kelas / (pokja.getPokja("POKJA PEMILIHAN 212").kelas + pokja.getPokja("POKJA PEMILIHAN 214").kelas + pokja.getPokja("POKJA PEMILIHAN 215").kelas + pokja.getPokja("POKJA PEMILIHAN 216").kelas)}} </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <h4>PROBABILITAS PARAMETER JENIS PENGADAAN</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS JENIS PENGADAAN</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+            {% for num in 0..3 %}
+                <tr>
+                    <td>{{ pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 212", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 214", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 215", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 216", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 212", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 214", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 215", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 216", pokja.getC("nama_jenis_pengadaan", "jenis_pengadaan")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <h4>PROBABILITAS PARAMETER SUMBER DANA</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS SUMBER DANA</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+            {% for num in 0..3 %}
+                <tr>
+                    <td>{{ pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 212", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 214", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 215", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 216", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 212", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 214", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 215", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_sumber_dana", "sumber_dana","POKJA PEMILIHAN 216", pokja.getC("nama_sumber_dana", "sumber_dana")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <h4>PROBABILITAS PARAMETER JENIS KONTRAK</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS JENIS KONTRAK</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+            {% for num in 0..3 %}
+                <tr>
+                    <td>{{ pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 212", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 214", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 215", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 216", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 212", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 214", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 215", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("nama_jenis_kontrak", "jenis_kontrak","POKJA PEMILIHAN 216", pokja.getC("nama_jenis_kontrak", "jenis_kontrak")[num].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <h4>PROBABILITAS PARAMETER PAGU</h4>
+        <br>
+        <table border="5" class="table table-hover">
+            <thead class="bg-secondary text-white">
+        <tr>
+            <th rowspan="2" class="align-middle text-center">KELAS PAGU</th>
+            <th colspan="4" class="align-middle text-center">JUMLAH</th>
+            <th colspan="4" class="align-middle text-center">PROBABILITAS</th>
+        </tr>
+        <tr>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+            <th>POKJA PEMILIHAN 212</th>
+            <th>POKJA PEMILIHAN 214</th>
+            <th>POKJA PEMILIHAN 215</th>
+            <th>POKJA PEMILIHAN 216</th>
+        </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ pokja.getC("range_pagu", "pagu")[0].parameter}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[0].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[0].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[0].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[0].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[0].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[0].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[0].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[0].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                </tr>
+                    <td>{{ pokja.getC("range_pagu", "pagu")[1].parameter}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[1].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[1].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[1].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[1].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[1].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[1].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[1].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[1].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                <tr>
+                    <td>{{ pokja.getC("range_pagu", "pagu")[2].parameter}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[2].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[2].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[2].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[2].parameter).data}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 212", pokja.getC("range_pagu", "pagu")[2].parameter).data / pokja.getPokja("POKJA PEMILIHAN 212").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 214", pokja.getC("range_pagu", "pagu")[2].parameter).data / pokja.getPokja("POKJA PEMILIHAN 214").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 215", pokja.getC("range_pagu", "pagu")[2].parameter).data / pokja.getPokja("POKJA PEMILIHAN 215").kelas}}</td>
+                    <td>{{ pokja.getHitung("range_pagu", "pagu","POKJA PEMILIHAN 216", pokja.getC("range_pagu", "pagu")[2].parameter).data / pokja.getPokja("POKJA PEMILIHAN 216").kelas}}</td>
+                </tr>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+    </div> #}
+{% endblock %}
+
+{% block actions %}
+    <div class="pull-right">
+        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_backend_perhitungan_data') }}">
+        <span class="fa fa-list"></span> {{ 'Data'|trans }}</a>
+    </div>
+{% endblock %}

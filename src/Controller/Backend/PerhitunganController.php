@@ -15,6 +15,9 @@ use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Kematjaya\BaseControllerBundle\Controller\BaseLexikFilterController as BaseController;
+use Phpml\Classification\NaiveBayes;
+use Phpml\Dataset\CsvDataset;
+use Phpml\ModelManager;
 
 /**
  * @Route("/backend/perhitungan", name="app_backend_perhitungan_")
@@ -66,12 +69,38 @@ class PerhitunganController extends BaseController
         $sd = $request->request->get('sumber_dana');
         $jk = $request->request->get('jenis_kontrak');
         $pg = $request->request->get('pagu');
+
+        $dataset = new CsvDataset('./dataset/dataset skripsi.csv', 0, true);
+
+        $samples = $dataset->getSamples();
+        $labels = $dataset->getTargets();
+
+        $dttesting[] = $_POST['jenis_pengadaan'];
+        $dttesting[] = $_POST['sumber_dana'];
+        $dttesting[] = $_POST['jenis_kontrak'];
+        $dttesting[] = $_POST['pagu'];
+
+        $class_hasil = "";
+        
+        $classifier = new NaiveBayes();
+        $classifier->train($samples, $labels);
+
+        $filepath = './model/model.csv';
+        
+        $model = new ModelManager();
+        $model->saveToFile($classifier, $filepath);
+
+        $restoredClassifier = $model->restoreFromFile($filepath);
+        $class_hasil = $restoredClassifier->predict($dttesting);
+
         return $this->render('backend/perhitungan/post.html.twig', [
             'jp' => $jp,
             'sd' => $sd,
             'jk' => $jk,
             'pg' => $pg,
             'pokja' => $pokja,
+            'dttesting' => $dttesting,
+            'class_hasil' => $class_hasil,
             'kmj_user' => $this->getUser()
           ]);
     }

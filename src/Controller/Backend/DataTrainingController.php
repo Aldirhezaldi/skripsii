@@ -24,6 +24,12 @@ use PDO;
 use PDOException;
 use Psr\Log\LoggerInterface;
 use App\Filter\DtTrainingFilterType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @Route("/data/training", name="app_data_training_")
@@ -31,9 +37,9 @@ use App\Filter\DtTrainingFilterType;
 class DataTrainingController extends BaseController
 {
     /**
-     * @Route("/", name="index", methods={"GET", "POST"})
+     * @Route("/index", name="index", methods={"GET", "POST"})
      */
-    public function index(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
+    public function index(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder, string $uploadDir, FileUploader $uploader, LoggerInterface $logger): Response
     {
         $builder->add('Master');
         $builder->add('Data Training');
@@ -45,6 +51,26 @@ class DataTrainingController extends BaseController
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/serial", name="serialization")
+     */
+    public function serial(): Response
+    {
+        $encoders = [new XmlEncoder(), new JsonEncoder(), new CsvEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+
+        $serializer = new Serializer($normalizers, $encoders);
+        $training = new DtTraining();
+
+        $training->setPokja('hai');
+        $excel = $serializer->serialize($training, 'csv');
+
+        return $this->json($excel);
+        // return $this->render('data_training/serial.html.twig', [
+        //     'kmj_user' => $this->getUser(),
+        // ]);
     }
 
     /**
@@ -65,6 +91,33 @@ class DataTrainingController extends BaseController
     }
 
     /**
+     * @Route("/coba", name="coba", methods={"GET", "POST"})
+     */
+    public function coba(Request $request, BreacrumbBuilder $builder, DtTrainingRepository $dtTrainingRepository, EntityManagerInterface $entityManagerInterface): Response
+    {
+        $dataTesting =  new DataTesting();
+        $builder->add('COba testing with import');
+
+        $data = $dtTrainingRepository;
+        $form = $this->createForm(DataTestingType::class, $dataTesting,[
+            'action' => $this->generateUrl('app_backend_perhitungan_coba_post'),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            // $dataTesting = $form->getData();
+            $entityManagerInterface->persist($dataTesting);
+            $entityManagerInterface->flush();
+            return $this->redirectToRoute('app_backend_perhitungan_coba_post');
+        }
+
+        return $this->render('data_training/coba.html.twig', [
+            'kmj_user' => $this->getUser(),
+        ]);
+    }
+
+    /**
      * @Route("/upload", name="upload_excel")
      */
     public function fileUpload(Request $request, string $uploadDir, FileUploader $uploader, LoggerInterface $logger)
@@ -80,7 +133,6 @@ class DataTrainingController extends BaseController
         }
 
         $file = $request->files->get('myfile');
-        // dd($file);
 
         if (empty($file)) 
         {
@@ -118,19 +170,21 @@ class DataTrainingController extends BaseController
 
         for ($row = 1; $row <= $highestRow; ++$row) {
             
-            $pokja = pg_escape_string($worksheet->getCellByColumnAndRow(1, $row)->getFormattedValue());
-            $jenis_pengadaan = pg_escape_string($worksheet->getCellByColumnAndRow(2, $row)->getFormattedValue());
-            $sumber_dana = pg_escape_string($worksheet->getCellByColumnAndRow(3, $row)->getFormattedValue());
-            $jenis_kontrak = pg_escape_string($worksheet->getCellByColumnAndRow(4, $row)->getFormattedValue());
-            $pagu = pg_escape_string($worksheet->getCellByColumnAndRow(5, $row)->getFormattedValue());
-            $id = pg_escape_string($worksheet->getCellByColumnAndRow(6, $row)->getFormattedValue());
-            // dd($id);
-            $query = "insert into dt_training(pokja, jenis_pengadaan, sumber_dana, jenis_kontrak, pagu) VALUES ('".$pokja."','".$jenis_pengadaan."','".$sumber_dana."','".$jenis_kontrak."','".$pagu."')";
+            $pokja = ("SELECT id FROM pokja WHERE nama_pokja = '". pg_escape_string($conn, $worksheet->getCellByColumnAndRow(1, $row)->getFormattedValue())."'"); 
+            $jenis_pengadaan = ("SELECT id FROM jenis_pengadaan WHERE nama_jenis_pengadaan = '". pg_escape_string($conn, $worksheet->getCellByColumnAndRow(2, $row)->getFormattedValue())."'"); 
+            $sumber_dana = ("SELECT id FROM sumber_dana WHERE nama_sumber_dana = '". pg_escape_string($conn, $worksheet->getCellByColumnAndRow(3, $row)->getFormattedValue())."'"); 
+            $jenis_kontrak = ("SELECT id FROM jenis_kontrak WHERE nama_jenis_kontrak = '". pg_escape_string($conn, $worksheet->getCellByColumnAndRow(4, $row)->getFormattedValue())."'");
+            $pagu = ("SELECT id FROM pagu WHERE range_pagu = '". pg_escape_string($conn, $worksheet->getCellByColumnAndRow(5, $row)->getFormattedValue())."'");  
+
+            $query = "insert into data_training(pokja_id, jenis_pengadaan_id, sumber_dana_id, jenis_kontrak_id, pagu_id) VALUES ((".$pokja."),(".$jenis_pengadaan."),(".$sumber_dana."),(".$jenis_kontrak."),(".$pagu."))";
 
         try {
             $result = pg_query($conn, $query);
             if ($result == true){
-                echo 'OK ';
+                echo ("<script LANGUAGE='JavaScript'>
+                        window.alert('Berhasil Mengimport Data Training');
+                        window.location.href='index';
+                        </script>");
             }else{
                 var_dump($result) . var_dump($conn) . var_dump($query);
             }

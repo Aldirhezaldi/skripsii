@@ -11,6 +11,18 @@
     </div>
 {% endblock %}
 {% block content %}
+<form action="{{ path('app_data_training_upload_excel') }}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+        <div class="form-group">
+            <label for="myfile">File to upload:</label>
+            <input type="file" class="form-control-file" name="myfile" id="myfile">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send</button>
+
+  </form>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
             <thead>
@@ -26,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                {{ include('data_training/_filters.html.twig', {filter: filter}) }} 
+                {# {{ include('data_training/_filters.html.twig', {filter: filter}) }}  #}
                     {% for data_training in data_trainings %}
                 <tr>
                     <td>{{ loop.index }}</td>

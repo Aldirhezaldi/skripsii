@@ -248,12 +248,11 @@
                 {% elseif max(pokja212,pokja214,pokja215,pokja216) == pokja216 %}
                     <td>{{hasil4}}</td>
                 {% endif %}
-                
-                    <td>{{jp}}</td>
-                    <td>{{sd}}</td>
-                    <td>{{jk}}</td>
-                    <td>{{pg}}</td>
+                    {% for dttesting in dttesting %}
+                    <td>{{dttesting}}</td>
+                {% endfor %}
                 </tr>
             </tbody>
         </table>
+        <h1>{{class_hasil}}</h1>
 {% endblock %}
