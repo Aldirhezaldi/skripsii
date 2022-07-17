@@ -3,8 +3,189 @@
     <title>{{ 'dash'|trans }}</title>
 {% endblock %}
 {% block body %}
-    <a>Welcome, {{ kmj_user.username }}</a>
-    </br>
+<div class="mt-2">
     <a>Anda login sebagai {{ kmj_user.name }}</a>
-    {{ render_chart(chart) }}
+</div>
+    <div class="d-flex flex-row pt-5">
+        <div style="width: 500px;margin-right: 150px auto;">
+            <h2 class="text-center pb-5">Chart Jenis Pengadaan</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div style="width: 500px;margin-right: 150px auto;">
+            <h2 class="text-center pb-5">Chart Sumber Dana</h2>
+            <canvas id="myChart2"></canvas>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div style="width: 500px;margin-right: 150px auto;">
+            <h2 class="text-center pb-5">Chart Jenis Kontrak</h2>
+            <canvas id="myChart3"></canvas>
+        </div>
+    </div>
+
+    <div class="pt-5">
+        <div style="width: 500px;margin-right: 150px auto;">
+            <h2 class="text-center pb-5">Chart Pagu</h2>
+            <canvas id="myChart4"></canvas>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type : 'pie',
+            data : {
+                labels: ["BARANG", "KONSULTASI", "KONSTRUKSI", "JASA LAINNYA"],
+                datasets: [{
+                    label: '',
+                    data: [
+                            {{ result_jp }},
+                            {{ result_jp1 }},
+                            {{ result_jp2 }},
+                            {{ result_jp3 }}
+                    ],
+                    backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+					],
+                    borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+					],
+					borderWidth: 1
+                }]
+            },
+            options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+    var ctx = document.getElementById("myChart2").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type : 'pie',
+            data : {
+                labels: ["APBD", "APBN", "BLUD", "LAINNYA"],
+                datasets: [{
+                    label: '',
+                    data: [
+                            {{ result_sd }},
+                            {{ result_sd1 }},
+                            {{ result_sd2 }},
+                            {{ result_sd3 }}
+                    ],
+                    backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+					],
+                    borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+					],
+					borderWidth: 1
+                }]
+            },
+            options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+        var ctx = document.getElementById("myChart3").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type : 'pie',
+            data : {
+                labels: ["LUMSUM", "HARGA SATUAN", "GABUNGAN LUMSUM DAN HARGA SATUAN", "WAKTU PENUGASAN"],
+                datasets: [{
+                    label: '',
+                    data: [
+                            {{ result_jk }},
+                            {{ result_jk1 }},
+                            {{ result_jk2 }},
+                            {{ result_jk3 }}
+                    ],
+                    backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+					],
+                    borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+					],
+					borderWidth: 1
+                }]
+            },
+            options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+        var ctx = document.getElementById("myChart4").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type : 'pie',
+            data : {
+                labels: ["A", "B", "C"],
+                datasets: [{
+                    label: '',
+                    data: [
+                            {{ result_p }},
+                            {{ result_p1 }},
+                            {{ result_p2 }}
+                    ],
+                    backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)'
+					],
+                    borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)'
+					],
+					borderWidth: 1
+                }]
+            },
+            options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
+    </script>
+
 {% endblock %}

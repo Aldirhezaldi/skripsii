@@ -43,6 +43,11 @@ class DtTraining
      */
     private $pagu;
 
+    public function __toString() 
+    {
+        return $this->getJenisPengadaan();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

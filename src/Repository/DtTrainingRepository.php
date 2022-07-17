@@ -39,6 +39,15 @@ class DtTrainingRepository extends ServiceEntityRepository
         }
     }
 
+    public function coba($jenis)
+    {
+        $qb = $this->createQueryBuilder('d')
+                    ->select('d')
+                    ->where('d.jenis_pengadaan = :jp')
+                    ->setParameter('jp', $jenis);
+        return $qb->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return DtTraining[] Returns an array of DtTraining objects
 //     */
