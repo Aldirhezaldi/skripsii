@@ -29,10 +29,10 @@
                     <td>{{ pagu.rangePagu}}</td>
                     <td>{{ pagu.pagu }}</td>
                     <td>
-                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_pagu_show', {'id': pagu.id}) }}">
+                        <a class="btn btn-xs btn-outline-primary" href="{{ path('app_pagu_show', {'id': pagu.id}) }} " data-toggle="modal" data-target="#modal">
                             <span class="fa fa-desktop"></span> {{ 'show'|trans }}
                         </a>
-                        <a class="btn btn-xs btn-outline-info" href="{{ path('app_pagu_edit', {'id': pagu.id}) }}">
+                        <a class="btn btn-xs btn-outline-info" href="{{ path('app_pagu_edit', {'id': pagu.id}) }}" data-toggle="modal" data-target="#modal">
                             <span class="fa fa-edit"></span> {{ 'edit'|trans }}
                         </a>
                             {{ include('pagu/_delete_form.html.twig', {pagu: pagu}) }}
