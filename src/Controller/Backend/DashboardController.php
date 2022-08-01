@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Kematjaya\Breadcrumb\Lib\Builder as BreacrumbBuilder;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
+use App\Repository\DataTrainingRepository;
 
 
 /**
@@ -19,11 +20,12 @@ class DashboardController extends AbstractKmjController
     /**
      * @Route("/", name="index", methods={"GET"})
      */
-    public function index(BreacrumbBuilder $builder, DtTrainingRepository $dtTrainingRepository): Response
+    public function index(BreacrumbBuilder $builder, DtTrainingRepository $dtTrainingRepository, DataTrainingRepository $dataTrainingRepository): Response
     {
         $builder->add('dash');
         $redirectPath = $this->getRoutingConfiguration()->getLoginSuccessRedirectPath($this->getUser()->getRoles());
         $conn = pg_connect("host=localhost port=5432 dbname=backup user=postgres password=buildstrike");
+        $pokja = $dataTrainingRepository;
         
         $query = pg_query($conn, "SELECT * from data_training where jenis_pengadaan_id = '1'");
         $query1 = pg_query($conn, "SELECT * from data_training where jenis_pengadaan_id = '2'");
@@ -65,6 +67,7 @@ class DashboardController extends AbstractKmjController
 
         return $this->render('backend/index.html.twig', [
             'kmj_user' => $this->getUser(),
+            'pokja' => $pokja,
             'title' => 'profile', 'back_path' => $redirectPath,
             'result_jp' => $result_jp,
             'result_jp1' => $result_jp1,

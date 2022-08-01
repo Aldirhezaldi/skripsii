@@ -34,6 +34,9 @@ class PerhitunganController extends BaseController
         $builder->add('Perhitungan Klasifikasi');
 
         $pokja = $dataTrainingRepository;
+        // dd($pokja->getC("nama_jenis_pengadaan", "jenis_pengadaan"));
+        // dd($pokja->getPokja("POKJA PEMILIHAN 212"));
+        // dd($pokja->getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 212", $pokja->getC("nama_jenis_pengadaan", "jenis_pengadaan")[0]));
         $form = $this->createForm(DataTestingType::class, $dataTesting,[
             'action' => $this->generateUrl('app_backend_perhitungan_post'),
         ]);
@@ -70,7 +73,7 @@ class PerhitunganController extends BaseController
         $jk = $request->request->get('jenis_kontrak');
         $pg = $request->request->get('pagu');
 
-        $dataset = new CsvDataset('./dataset/dataset skripsi.csv', 0, true);
+        $dataset = new CsvDataset('./dataset/NON ENCODE.csv', 4, true);
 
         $samples = $dataset->getSamples();
         $labels = $dataset->getTargets();
@@ -81,17 +84,21 @@ class PerhitunganController extends BaseController
         $dttesting[] = $_POST['pagu'];
 
         $class_hasil = "";
-        
+        // dd($dttesting);
         $classifier = new NaiveBayes();
         $classifier->train($samples, $labels);
-
-        $filepath = './model/model.csv';
+        
+        $filepath = './model/model2.csv';
         
         $model = new ModelManager();
         $model->saveToFile($classifier, $filepath);
 
+        // dd($dttesting);
+
         $restoredClassifier = $model->restoreFromFile($filepath);
+        // dd($restoredClassifier);
         $class_hasil = $restoredClassifier->predict($dttesting);
+        // dd($restoredClassifier->predict(['JASA LAINNYA', 'LAINNYA', 'WAKTU PENUGASAN', 'C']));
 
         return $this->render('backend/perhitungan/post.html.twig', [
             'jp' => $jp,
