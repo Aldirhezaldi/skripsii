@@ -2,65 +2,44 @@
 
 namespace App\Entity;
 
-use App\Repository\DataTrainingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\DtTestingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=DataTrainingRepository::class)
+ * @ORM\Entity(repositoryClass=DtTestingRepository::class)
  */
-class DataTraining
+class DtTesting
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\SequenceGenerator(sequenceName="data_training_id_seq")
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Pokja::class, inversedBy="dataTrainings")
-     */
-    private $pokja;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=JenisPengadaan::class, inversedBy="dataTrainings")
+     * @ORM\ManyToOne(targetEntity=JenisPengadaan::class, inversedBy="dtTestings")
      */
     private $jenis_pengadaan;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SumberDana::class, inversedBy="dataTrainings")
+     * @ORM\ManyToOne(targetEntity=SumberDana::class, inversedBy="dtTestings")
      */
     private $sumber_dana;
 
     /**
-     * @ORM\ManyToOne(targetEntity=JenisKontrak::class, inversedBy="dataTrainings")
+     * @ORM\ManyToOne(targetEntity=JenisKontrak::class, inversedBy="dtTestings")
      */
     private $jenis_kontrak;
 
     /**
-     * @ORM\ManyToOne(targetEntity=pagu::class, inversedBy="dataTrainings")
+     * @ORM\ManyToOne(targetEntity=Pagu::class, inversedBy="dtTestings")
      */
     private $pagu;
-
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPokja(): ?Pokja
-    {
-        return $this->pokja;
-    }
-
-    public function setPokja(?Pokja $pokja): self
-    {
-        $this->pokja = $pokja;
-
-        return $this;
     }
 
     public function getJenisPengadaan(): ?JenisPengadaan
@@ -99,12 +78,12 @@ class DataTraining
         return $this;
     }
 
-    public function getPagu(): ?pagu
+    public function getPagu(): ?Pagu
     {
         return $this->pagu;
     }
 
-    public function setPagu(?pagu $pagu): self
+    public function setPagu(?Pagu $pagu): self
     {
         $this->pagu = $pagu;
 

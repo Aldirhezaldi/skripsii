@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\DataTesting;
+use App\Entity\DtTesting;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<DataTesting>
+ * @extends ServiceEntityRepository<DtTesting>
  *
- * @method DataTesting|null find($id, $lockMode = null, $lockVersion = null)
- * @method DataTesting|null findOneBy(array $criteria, array $orderBy = null)
- * @method DataTesting[]    findAll()
- * @method DataTesting[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method DtTesting|null find($id, $lockMode = null, $lockVersion = null)
+ * @method DtTesting|null findOneBy(array $criteria, array $orderBy = null)
+ * @method DtTesting[]    findAll()
+ * @method DtTesting[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DataTestingRepository extends ServiceEntityRepository
+class DtTestingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DataTesting::class);
+        parent::__construct($registry, DtTesting::class);
     }
 
-    public function add(DataTesting $entity, bool $flush = false): void
+    public function add(DtTesting $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class DataTestingRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(DataTesting $entity, bool $flush = false): void
+    public function remove(DtTesting $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class DataTestingRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return DataTesting[] Returns an array of DataTesting objects
+//     * @return DtTesting[] Returns an array of DtTesting objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class DataTestingRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?DataTesting
+//    public function findOneBySomeField($value): ?DtTesting
 //    {
 //        return $this->createQueryBuilder('d')
 //            ->andWhere('d.exampleField = :val')

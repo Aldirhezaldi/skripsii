@@ -43,7 +43,8 @@ class DataTrainingController extends BaseController
     {
         $builder->add('Master');
         $builder->add('Data Training');
-
+        // $pokja = $dataTrainingRepository;
+        // dd($pokja->add());
         $form = $this->createFormFilter(DataTrainingFilterType::class);
         $queryBuilder = $this->buildFilter($request, $form, $dataTrainingRepository->createQueryBuilder('this'));
         return $this->render('data_training/index.html.twig', [

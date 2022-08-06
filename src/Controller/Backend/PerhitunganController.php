@@ -2,12 +2,15 @@
 
 namespace App\Controller\Backend;
 
-use App\Entity\DataTesting;
 use App\Repository\DataTrainingRepository;
 use App\Entity\DataTraining;
+use App\Entity\DtTesting;
+use App\Entity\JenisPengadaan;
 use App\Form\DataTestingType;
 use App\Repository\PokjaRepository;
-use App\Filter\DataTrainingFilterType;
+use App\Filter\DtTestingFilterType;
+use App\Form\DtTestingType;
+use App\Repository\DtTestingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,13 +33,10 @@ class PerhitunganController extends BaseController
      */
     public function index(Request $request, BreacrumbBuilder $builder, DataTrainingRepository $dataTrainingRepository, EntityManagerInterface $entityManagerInterface): Response
     {
-        $dataTesting =  new DataTesting();
+        $dataTesting =  new DtTesting();
         $builder->add('Perhitungan Klasifikasi');
 
         $pokja = $dataTrainingRepository;
-        // dd($pokja->getC("nama_jenis_pengadaan", "jenis_pengadaan"));
-        // dd($pokja->getPokja("POKJA PEMILIHAN 212"));
-        // dd($pokja->getHitung("nama_jenis_pengadaan", "jenis_pengadaan","POKJA PEMILIHAN 212", $pokja->getC("nama_jenis_pengadaan", "jenis_pengadaan")[0]));
         $form = $this->createForm(DataTestingType::class, $dataTesting,[
             'action' => $this->generateUrl('app_backend_perhitungan_post'),
         ]);
@@ -62,7 +62,7 @@ class PerhitunganController extends BaseController
     /**
      * @Route("/post", name="post")
      */
-    public function formPost(Request $request, DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
+    public function formPost(Request $request, DataTrainingController $dataTrainingController , DataTrainingRepository $dataTrainingRepository, BreacrumbBuilder $builder): Response
     {
         $builder->add('Perhitungan Klasifikasi');
         $builder->add('Hasil Klasifikasi');
@@ -127,5 +127,109 @@ class PerhitunganController extends BaseController
             'data_trainings' => parent::createPaginator($queryBuilder, $request), 
             'filter' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/list_testing", name="list_testing", methods={"GET", "POST"})
+     */
+    public function listTesting(Request $request, DtTestingRepository $dtTestingRepository, BreacrumbBuilder $builder): Response
+    {
+        $builder->add('Semua Data testing');
+
+        $form = $this->createFormFilter(DtTestingFilterType::class);
+        $queryBuilder = $this->buildFilter($request, $form, $dtTestingRepository->createQueryBuilder('this'));
+        return $this->render('backend/perhitungan/list_testing.html.twig', [
+            'kmj_user' => $this->getUser(),
+            'data_test' => parent::createPaginator($queryBuilder, $request), 
+            'filter' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/create", name="create", methods={"GET","POST"})
+     */
+    public function create(Request $request): Response
+    {
+        $dtTesting = new DtTesting();
+        
+        $form = $this->createForm(DtTestingType::class, $dtTesting, [
+        'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_backend_perhitungan_create')]
+        ]);
+        $result = parent::processFormAjax($request, $form);
+        if ($result['process']) {
+            return $this->json($result);
+        }
+                
+        return $this->render('backend/perhitungan/form_create.html.twig', [
+            'dt_testing' => $dtTesting,
+            'form' => $form->createView(), 'title' => 'create'
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/show", name="show", methods={"GET"})
+     */
+    public function show(DtTesting $dtTesting): Response
+    {
+        return $this->render('backend/perhitungan/show_testing.html.twig', [
+            'dtTesting' => $dtTesting,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/klasifikasi", name="klasifikasi", methods={"GET"})
+     */
+    public function klasifikasi($id, Request $request, DtTesting $dtTesting, DataTrainingRepository $dataTrainingRepository): Response
+    {
+
+        $pokja = $dataTrainingRepository;
+
+        $tes = [
+            $jp = [strval($dtTesting->getJenisPengadaan())][0],
+            $sd = [strval($dtTesting->getSumberDana())][0],
+            $jk = [strval($dtTesting->getJenisKontrak())][0],
+            $pg = [strval($dtTesting->getPagu())][0],
+        ];
+
+        return $this->render('backend/perhitungan/klasifikasi.html.twig', [
+            'kmj_user' => $this->getUser(),
+            'id' => $id,
+            'jp' => $jp,
+            'sd' => $sd,
+            'jk' => $jk,
+            'pg' => $pg,
+            'pokja' => $pokja,
+            'dtTesting' => $dtTesting,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, DtTesting $dtTesting): Response
+    {
+        $form = $this->createForm(DtTestingType::class, $dtTesting, [
+        'attr' => ['id' => 'ajaxForm', 'action' => $this->generateUrl('app_backend_perhitungan_edit', ['id' => $dtTesting->getId()])]
+        ]);
+        $result = parent::processFormAjax($request, $form);
+        if ($result['process']) {
+            return $this->json($result);
+        }
+         
+        return $this->render('backend/perhitungan/form_create.html.twig', [
+            'dtTesting' => $dtTesting,
+            'form' => $form->createView(), 'title' => 'edit'
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/delete", name="delete", methods={"DELETE","POST"})
+     */
+    public function delete(Request $request, DtTesting $dtTesting): Response
+    {
+        $tokenName = 'delete'.$dtTesting->getId();
+        parent::doDelete($request, $dtTesting, $tokenName);
+        
+        return $this->redirectToRoute('app_backend_perhitungan_list_testing');
     }
 }

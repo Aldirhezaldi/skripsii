@@ -39,6 +39,11 @@ class Pokja
      */
     private $dataTrainings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DtTesting::class, mappedBy="pokja")
+     */
+    private $dtTestings;
+
     public function __toString() 
     {
         return $this->getNamaPokja();
@@ -47,6 +52,7 @@ class Pokja
     public function __construct()
     {
         $this->dataTrainings = new ArrayCollection();
+        $this->dtTestings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +120,36 @@ class Pokja
             // set the owning side to null (unless already changed)
             if ($dataTraining->getPokja() === $this) {
                 $dataTraining->setPokja(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DtTesting>
+     */
+    public function getDtTestings(): Collection
+    {
+        return $this->dtTestings;
+    }
+
+    public function addDtTesting(DtTesting $dtTesting): self
+    {
+        if (!$this->dtTestings->contains($dtTesting)) {
+            $this->dtTestings[] = $dtTesting;
+            $dtTesting->setPokja($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDtTesting(DtTesting $dtTesting): self
+    {
+        if ($this->dtTestings->removeElement($dtTesting)) {
+            // set the owning side to null (unless already changed)
+            if ($dtTesting->getPokja() === $this) {
+                $dtTesting->setPokja(null);
             }
         }
 

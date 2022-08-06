@@ -138,7 +138,7 @@ class DataTrainingRepository extends ServiceEntityRepository
                     ->andWhere('p.'.$select.'= :select')
                     ->setParameter('select', $isi)
                     ->setParameter('pokja', $kelas);
-        return $qb->getQuery()->getResult()[0];
+                    return $qb->getQuery()->getResult()[0];
     }
     public function getLeftJoin()
     {

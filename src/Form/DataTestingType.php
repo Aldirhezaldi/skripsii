@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\DataTesting;
+use App\Entity\DtTesting;
 use App\Entity\DataTraining;
 use App\Entity\JenisPengadaan;
 use App\Entity\SumberDana;
@@ -75,7 +75,7 @@ class DataTestingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => DataTesting::class,
+            'data_class' => DtTesting::class,
         ]);
     }
 }

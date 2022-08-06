@@ -29,6 +29,11 @@ class JenisKontrak
      */
     private $dataTrainings;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DtTesting::class, mappedBy="jenis_kontrak")
+     */
+    private $dtTestings;
+
     public function __toString() 
     {
         return $this->getNamaJenisKontrak();
@@ -37,6 +42,7 @@ class JenisKontrak
     public function __construct()
     {
         $this->dataTrainings = new ArrayCollection();
+        $this->dtTestings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,6 +86,36 @@ class JenisKontrak
             // set the owning side to null (unless already changed)
             if ($dataTraining->getJenisKontrak() === $this) {
                 $dataTraining->setJenisKontrak(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DtTesting>
+     */
+    public function getDtTestings(): Collection
+    {
+        return $this->dtTestings;
+    }
+
+    public function addDtTesting(DtTesting $dtTesting): self
+    {
+        if (!$this->dtTestings->contains($dtTesting)) {
+            $this->dtTestings[] = $dtTesting;
+            $dtTesting->setJenisKontrak($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDtTesting(DtTesting $dtTesting): self
+    {
+        if ($this->dtTestings->removeElement($dtTesting)) {
+            // set the owning side to null (unless already changed)
+            if ($dtTesting->getJenisKontrak() === $this) {
+                $dtTesting->setJenisKontrak(null);
             }
         }
 
